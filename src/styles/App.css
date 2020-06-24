@@ -1,0 +1,16 @@
+.nav-bar {
+  position: fixed;
+  background-color: #fff;
+  box-shadow: 0 -7px 15px #999999;
+  width: 100vw;
+  z-index: 1;
+}
+
+.nav-menu {
+  display: flex;
+  width: auto;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: none;
+  height: 95%;
+}
