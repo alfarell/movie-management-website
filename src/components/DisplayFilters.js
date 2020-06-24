@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { Menu } from 'antd';
 
 const DisplayFilters = () => {
     const [genreList, setGenreList] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState('Select genre')
 
     useEffect(() => {
         Axios.get(`${process.env.REACT_APP_BASE_URL}/genre/list?api_key=${process.env.REACT_APP_BASE_API_KEY}`)
@@ -15,16 +17,16 @@ const DisplayFilters = () => {
     }, []);
 
     return (
-        <div>
-            {
-                genreList.length === 0
-                    ? <div>loading...</div>
-                    : genreList.map(genre => {
+        <div style={{ flex: 1, width: '100%', display: 'flex' }}>
+            <Menu mode='horizontal'>
+                <Menu.SubMenu title={<span>{selectedGenre}</span>} disabled={genreList.length === 0 ? true : false} >
+                    {genreList.map(genre => {
                         return (
-                            <div key={genre.id}>{genre.name}</div>
+                            <Menu.Item key={genre.id} onClick={() => setSelectedGenre('Genre : ' + genre.name)}>{genre.name}</Menu.Item>
                         )
-                    })
-            }
+                    })}
+                </Menu.SubMenu>
+            </Menu>
         </div>
     );
 };
