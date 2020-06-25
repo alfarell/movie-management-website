@@ -11,7 +11,7 @@ const AppContextProvider = ({ children }) => {
     const [selectedGenre, setSelectedGenre] = useState(null);
     const [sortOption, setSortOption] = useState('popularity.desc')
     const [pagination, setPagination] = useState(1);
-
+    const [favoritedMovie, setFavoritedMovie] = useState([])
 
 
     useEffect(() => {
@@ -59,6 +59,10 @@ const AppContextProvider = ({ children }) => {
             });
     }
 
+    const addFavoriteMovie = (movie) => {
+        setFavoritedMovie([...favoritedMovie, movie]);
+    }
+
     return (
         <MovieContext.Provider value={{
             movieList,
@@ -69,7 +73,10 @@ const AppContextProvider = ({ children }) => {
             setSelectedGenre,
             sortOption,
             setSortOption,
-            handleLoadMore
+            handleLoadMore,
+            favoritedMovie,
+            setFavoritedMovie,
+            addFavoriteMovie
         }}>
             <UserContext.Provider value={{ test: 'test' }}>
                 {children}
