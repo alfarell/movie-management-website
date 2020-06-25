@@ -1,17 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import React, { useContext } from 'react';
 import { Row, Spin, Card, Col } from 'antd';
+import { MovieContext } from '../services/AppContextProvider';
 
 const DisplayMovieList = () => {
-    const [movieList, setMovieList] = useState([]);
-
-    useEffect(() => {
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
-            .then(res => {
-                console.log(res.data)
-                setMovieList([...movieList, ...res.data.results])
-            });
-    }, [])
+    const { movieList } = useContext(MovieContext);
 
     return (
         <Row gutter={[5, 5]} justify='center'>

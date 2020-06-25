@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import DisplayFilters from '../components/DisplayFilters';
 import DisplayMovieList from '../components/DisplayMovieList';
 import { Row, Col, Card, Typography } from 'antd';
