@@ -13,7 +13,7 @@ const MainContainer = () => {
             <Header style={{ padding: 0 }}>
                 <NavBar />
             </Header>
-            <Content>
+            <Content style={{ padding: '10px 20px' }}>
                 <Route path='/' exact component={HomePage} />
                 <Route path='/favorites' component={FavoritesPage} />
             </Content>
