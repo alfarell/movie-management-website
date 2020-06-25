@@ -24,7 +24,6 @@ const NavBar = () => {
                         className='nav-menu'
                         mode='horizontal'
                         theme='light'
-                        inlineCollapsed
                         selectedKeys={[location.pathname]}
                         overflowedIndicator={<MenuOutlined style={{ fontSize: 16 }} />}
                     >
