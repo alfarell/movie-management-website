@@ -5,7 +5,6 @@ import CardContent from '../components/CardContent';
 const FavoritesPage = () => {
     const favoritedMovie = JSON.parse(localStorage.getItem('favorited'));
 
-    console.log(favoritedMovie)
     return (
         <Card title='Favorite Movie'>
             <Row>
