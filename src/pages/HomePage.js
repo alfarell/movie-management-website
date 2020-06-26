@@ -14,7 +14,7 @@ const HomePage = () => {
                 </Card>
             </Col>
             <Col xs={24} sm={24} md={24} lg={19} xl={20} xxl={20}>
-                <Card style={{ minHeight: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 0 }}>
+                <Card className='display-movie-list'>
                     <DisplayMovieList />
                 </Card>
             </Col>
