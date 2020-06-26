@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import _ from 'loadsh';
 import Axios from 'axios';
 
 
@@ -58,13 +59,22 @@ const AppContextProvider = ({ children }) => {
             });
     }
 
-    const addFavoriteMovie = (movie) => {
-        const currentMovie = JSON.parse(localStorage.getItem('favorited'));
+    const addFavoriteMovie = (favoritedMovie) => {
+        let currentMovie = JSON.parse(localStorage.getItem('favorited'));
         let addFavorited;
 
-        currentMovie
-            ? addFavorited = [...currentMovie, movie]
-            : addFavorited = [movie];
+        if (currentMovie) {
+            let check = _.find(currentMovie, favoritedMovie);
+            if (check) {
+                addFavorited = currentMovie.filter(movie => {
+                    return movie.id !== favoritedMovie.id
+                });
+            } else {
+                addFavorited = [...currentMovie, favoritedMovie]
+            }
+        } else {
+            addFavorited = [favoritedMovie];
+        }
 
         localStorage.setItem('favorited', JSON.stringify(addFavorited));
     }
