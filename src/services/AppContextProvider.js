@@ -45,12 +45,13 @@ const AppContextProvider = ({ children }) => {
     }
 
     const handleLoadMore = () => {
-        const genre = selectedGenre ? selectedGenre.id : '';
-        const sort = sortOption;
-
         setPagination(pagination + 1);
 
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagination}&with_genres=${genre}&sort_by=${sort}`)
+        const genre = selectedGenre ? selectedGenre.id : '';
+        const sort = sortOption;
+        let page = pagination + 1
+
+        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
                 setMovieList([...movieList, ...res.data.results])
             })
@@ -89,6 +90,8 @@ const AppContextProvider = ({ children }) => {
             setSelectedGenre,
             sortOption,
             setSortOption,
+            pagination,
+            setPagination,
             handleLoadMore,
             addFavoriteMovie
         }}>

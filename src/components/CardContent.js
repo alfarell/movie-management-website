@@ -12,15 +12,19 @@ const CardContent = ({ data }) => {
     return (
         <Card
             hoverable
-            onMouseEnter={() => {
-                setDisplayFavorite('block')
-            }}
-            onMouseLeave={() => {
-                setDisplayFavorite('none')
-            }}
+            onMouseEnter={() => setDisplayFavorite('block')}
+            onMouseLeave={() => setDisplayFavorite('none')}
             style={{ minWidth: '5rem', maxWidth: '11rem' }}
-            cover={<img src={process.env.REACT_APP_IMAGE_URL + data.poster_path} alt='movie-poster' />}
-            actions={[<HeartFilled key='favorite' style={{ display: displayFavorite }} onClick={() => addFavoriteMovie(data)} />]}
+            cover={
+                <img src={process.env.REACT_APP_IMAGE_URL + data.poster_path} alt='movie-poster' />
+            }
+            actions={[
+                <HeartFilled
+                    key='favorite'
+                    style={{ display: displayFavorite }}
+                    onClick={() => addFavoriteMovie(data)}
+                />
+            ]}
         >
             <Card.Meta title={data.title} />
             <Rate
