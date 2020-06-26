@@ -11,7 +11,6 @@ const AppContextProvider = ({ children }) => {
     const [selectedGenre, setSelectedGenre] = useState(null);
     const [sortOption, setSortOption] = useState('popularity.desc')
     const [pagination, setPagination] = useState(1);
-    const [favoritedMovie, setFavoritedMovie] = useState([])
 
 
     useEffect(() => {
@@ -32,7 +31,7 @@ const AppContextProvider = ({ children }) => {
 
         setPagination(1);
         fetchMovie(discovers);
-    }, [selectedGenre, sortOption]);
+    }, []);
 
     const fetchMovie = ({ genre, sort }) => {
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagination}&with_genres=${genre}&sort_by=${sort}`)
@@ -60,7 +59,14 @@ const AppContextProvider = ({ children }) => {
     }
 
     const addFavoriteMovie = (movie) => {
-        setFavoritedMovie([...favoritedMovie, movie]);
+        const currentMovie = JSON.parse(localStorage.getItem('favorited'));
+        let addFavorited;
+
+        currentMovie
+            ? addFavorited = [...currentMovie, movie]
+            : addFavorited = [movie];
+
+        localStorage.setItem('favorited', JSON.stringify(addFavorited));
     }
 
     return (
@@ -74,8 +80,6 @@ const AppContextProvider = ({ children }) => {
             sortOption,
             setSortOption,
             handleLoadMore,
-            favoritedMovie,
-            setFavoritedMovie,
             addFavoriteMovie
         }}>
             <UserContext.Provider value={{ test: 'test' }}>
