@@ -7,7 +7,7 @@ const FavoritesPage = () => {
 
     return (
         <Card title='Favorite Movie'>
-            <Row>
+            <Row gutter={[5, 5]} justify='center'>
                 {favoritedMovie
                     ? favoritedMovie.map(movie => {
                         return (
