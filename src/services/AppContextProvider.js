@@ -32,7 +32,7 @@ const AppContextProvider = ({ children }) => {
 
         setPagination(1);
         fetchMovie(discovers);
-    }, []);
+    }, [selectedGenre, sortOption]);
 
     const fetchMovie = ({ genre, sort }) => {
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagination}&with_genres=${genre}&sort_by=${sort}`)
