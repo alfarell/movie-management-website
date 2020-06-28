@@ -3,7 +3,7 @@ import { Menu, Tag } from 'antd';
 import { MovieContext } from '../services/AppContextProvider';
 
 const DisplayFilters = () => {
-    const { genreList, selectedGenre, setSelectedGenre, setMovieList, setSortOption } = useContext(MovieContext);
+    const { genreList, selectedGenre, setSelectedGenre, setSortOption } = useContext(MovieContext);
 
     return (
         <Menu mode='inline'>
@@ -24,10 +24,7 @@ const DisplayFilters = () => {
                     return (
                         <Menu.Item
                             key={genre.id}
-                            onClick={() => {
-                                setMovieList([]);
-                                setSelectedGenre({ id: genre.id, name: genre.name });
-                            }}>
+                            onClick={() => setSelectedGenre({ id: genre.id, name: genre.name })}>
                             {genre.name}
                         </Menu.Item>
                     )

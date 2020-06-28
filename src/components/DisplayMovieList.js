@@ -1,34 +1,40 @@
 import React, { useContext, Fragment } from 'react';
-import { Row, Spin, Col, Button, Badge } from 'antd';
-import _ from 'loadsh';
+import { Row, Spin, Col, Button, Typography } from 'antd';
 import { MovieContext } from '../services/AppContextProvider';
 import CardContent from './CardContent';
-import { HeartFilled } from '@ant-design/icons';
 
+
+const { Text } = Typography;
+
+const RenderMovieList = ({ movieList, isLoading, error }) => {
+    if (isLoading.loading && isLoading.loader === 'movie-list') return <Spin tip='Loading...' size='large' />;
+    if (error.status && error.error === 'movie-list') return <Text>Some Error is Occured</Text>
+
+    return movieList.map(movie => {
+        return (
+            <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} >
+                <CardContent data={movie} />
+            </Col>
+        )
+    })
+}
 
 const DisplayMovieList = () => {
-    const { movieList, handleLoadMore, listFavoriteMovie } = useContext(MovieContext);
+    const { movieList, handleLoadMore, isLoading, error } = useContext(MovieContext);
 
     return (
         <Fragment>
             <Row gutter={[5, 5]} justify='center'>
-                {movieList.length === 0
-                    ? <Spin tip='Loading...' size='large' />
-                    : movieList.map(movie => {
-                        const favorite = _.find(listFavoriteMovie, movie);
-
-                        return (
-                            <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} >
-                                <Badge count={favorite ? <HeartFilled style={{ fontSize: 20, color: 'red' }} /> : null}>
-                                    <CardContent data={movie} />
-                                </Badge>
-                            </Col>
-                        )
-                    })
-                }
+                <RenderMovieList {...{ movieList, isLoading, error }} />
             </Row>
 
-            {movieList.length === 0 ? null : <Button type='primary' onClick={handleLoadMore}>Load More</Button>}
+            {movieList.length === 0
+                ? null
+                : <Button
+                    type='primary'
+                    loading={isLoading.loading && isLoading.loader === 'load-more-movie' ? true : false}
+                    onClick={handleLoadMore}> Load more </Button>
+            }
         </Fragment>
     );
 };
