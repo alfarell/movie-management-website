@@ -4,16 +4,24 @@ import Axios from 'axios';
 
 
 export const MovieContext = createContext();
-export const UserContext = createContext();
 
 const AppContextProvider = ({ children }) => {
+    //useState of movie and genre list
     const [movieList, setMovieList] = useState([]);
     const [genreList, setGenreList] = useState([]);
+    //useState of settings for fetching movie list with discover
     const [selectedGenre, setSelectedGenre] = useState(null);
-    const [sortOption, setSortOption] = useState('popularity.desc')
+    const [sortOption, setSortOption] = useState('popularity.desc');
     const [pagination, setPagination] = useState(1);
+    //useState of list favorited movie
+    const [listFavoriteMovie, setListFavoriteMovie] = useState([], () => {
+        //to set the default value of list favorited movie
+        const favoritedMovie = JSON.parse(localStorage.getItem('favorite-movie'));
+        return favoritedMovie ? favoritedMovie : [];
+    });
 
 
+    //Genre List
     useEffect(() => {
         Axios.get(`${process.env.REACT_APP_BASE_URL}/genre/list?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US`)
             .then(res => {
@@ -24,6 +32,7 @@ const AppContextProvider = ({ children }) => {
             });
     }, [genreList]);
 
+    //Fetch movie list and set option to discover the movie list
     useEffect(() => {
         const discovers = {
             genre: selectedGenre ? selectedGenre.id : '',
@@ -34,22 +43,30 @@ const AppContextProvider = ({ children }) => {
         fetchMovie(discovers);
     }, [selectedGenre, sortOption]);
 
+    //Save the favorited movie list to local storage
+    useEffect(() => {
+        localStorage.setItem('favorite-movie', JSON.stringify(listFavoriteMovie));
+    }, [listFavoriteMovie]);
+
+
+    //Fetch movie list 
     const fetchMovie = ({ genre, sort }) => {
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${pagination}&with_genres=${genre}&sort_by=${sort}`)
+        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
                 setMovieList([...res.data.results])
             })
             .catch(err => {
                 console.log(err);
             });
-    }
+    };
 
+    //Handle load more movie
     const handleLoadMore = () => {
         setPagination(pagination + 1);
 
         const genre = selectedGenre ? selectedGenre.id : '';
         const sort = sortOption;
-        let page = pagination + 1
+        const page = pagination + 1;
 
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
@@ -58,27 +75,18 @@ const AppContextProvider = ({ children }) => {
             .catch(err => {
                 console.log(err);
             });
-    }
+    };
 
-    const addFavoriteMovie = (favoritedMovie) => {
-        let currentMovie = JSON.parse(localStorage.getItem('favorited'));
-        let addFavorited;
+    //
+    const addFavoriteMovie = (newFavorite) => {
+        let checkFavoriteMovie = _.find(listFavoriteMovie, newFavorite);
 
-        if (currentMovie) {
-            let check = _.find(currentMovie, favoritedMovie);
-            if (check) {
-                addFavorited = currentMovie.filter(movie => {
-                    return movie.id !== favoritedMovie.id
-                });
-            } else {
-                addFavorited = [...currentMovie, favoritedMovie]
-            }
-        } else {
-            addFavorited = [favoritedMovie];
-        }
-
-        localStorage.setItem('favorited', JSON.stringify(addFavorited));
-    }
+        checkFavoriteMovie
+            ? setListFavoriteMovie(listFavoriteMovie.filter((favorited) => {
+                return favorited.id !== newFavorite.id
+            }))
+            : setListFavoriteMovie([...listFavoriteMovie, newFavorite]);
+    };
 
     return (
         <MovieContext.Provider value={{
@@ -87,6 +95,8 @@ const AppContextProvider = ({ children }) => {
             genreList,
             setGenreList,
             selectedGenre,
+            listFavoriteMovie,
+            setListFavoriteMovie,
             setSelectedGenre,
             sortOption,
             setSortOption,
@@ -95,9 +105,7 @@ const AppContextProvider = ({ children }) => {
             handleLoadMore,
             addFavoriteMovie
         }}>
-            <UserContext.Provider value={{ test: 'test' }}>
-                {children}
-            </UserContext.Provider>
+            {children}
         </MovieContext.Provider>
     );
 };

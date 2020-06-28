@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Typography, Row, Col, Menu } from 'antd';
 import { PlayCircleOutlined, MenuOutlined } from '@ant-design/icons';
 import { AppPages } from '../utils/AppPages';
+import { MovieContext } from '../services/AppContextProvider';
 
 
 const { Header } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
+
 const NavBar = () => {
     const location = useLocation();
+    const { listFavoriteMovie } = useContext(MovieContext);
 
     return (
         <Header className='nav-bar'>
             <Row justify='space-between' >
-                <Col>
-                    <Title>
+                <Col style={{ display: 'flex', alignItems: 'center' }}>
+                    <Title style={{ margin: 0 }}>
                         <PlayCircleOutlined />
                         Movie
                     </Title>
@@ -31,7 +34,7 @@ const NavBar = () => {
                             return (
                                 <Menu.Item key={page.path} style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
                                     <Link to={page.path}>{page.name}</Link>
-                                    {page.name === 'Favorites' ? <PlayCircleOutlined /> : ''}
+                                    {page.name === 'Favorites' ? <Text>({listFavoriteMovie.length})</Text> : ''}
                                 </Menu.Item>
                             );
                         })}

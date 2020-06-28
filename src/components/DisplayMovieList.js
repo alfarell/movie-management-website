@@ -7,8 +7,7 @@ import { HeartFilled } from '@ant-design/icons';
 
 
 const DisplayMovieList = () => {
-    const { movieList, handleLoadMore } = useContext(MovieContext);
-    const favoritedMovie = JSON.parse(localStorage.getItem('favorited'));
+    const { movieList, handleLoadMore, listFavoriteMovie } = useContext(MovieContext);
 
     return (
         <Fragment>
@@ -16,7 +15,7 @@ const DisplayMovieList = () => {
                 {movieList.length === 0
                     ? <Spin tip='Loading...' size='large' />
                     : movieList.map(movie => {
-                        const favorite = _.find(favoritedMovie, movie);
+                        const favorite = _.find(listFavoriteMovie, movie);
 
                         return (
                             <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} >
