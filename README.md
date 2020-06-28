@@ -39,30 +39,19 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Home Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+List of movie, the default movie in the list is discovered by pupularity_desc
 
-### Code Splitting
+### Discover Menu :
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+**- Sort by :**: Sort the movie list by Pupularity, Latest Release, and Oldest Release
+**- Select Genre**: Filter the movie list by any selected genre, list genre is Action, Animation, Comedy, etc.
 
-### Analyzing the Bundle Size
+### Movie List
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Show list of movie, user can add to favorite movie by clicking the heart button
 
-### Making a Progressive Web App
+### Favorite Page
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+List of Favorited Movie
