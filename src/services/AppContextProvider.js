@@ -9,16 +9,21 @@ const AppContextProvider = ({ children }) => {
     //useState of movie and genre list
     const [movieList, setMovieList] = useState([]);
     const [genreList, setGenreList] = useState([]);
+
     //useState of settings for fetching movie list with discover
     const [selectedGenre, setSelectedGenre] = useState(null);
     const [sortOption, setSortOption] = useState('popularity.desc');
     const [pagination, setPagination] = useState(1);
+
     //useState of list favorited movie
-    const [listFavoriteMovie, setListFavoriteMovie] = useState([], () => {
-        //to set the default value of list favorited movie
-        const favoritedMovie = JSON.parse(localStorage.getItem('favorite-movie'));
-        return favoritedMovie ? favoritedMovie : [];
+    const [listFavoriteMovie, setListFavoriteMovie] = useState(() => {
+        //to set the default value of list favorited movie from local storage
+        const favoritedMovie = localStorage.getItem('favorite-movie');
+        return favoritedMovie ? JSON.parse(favoritedMovie) : [];
     });
+
+    const [isLoading, setIsLoading] = useState({ loading: false, loader: '' });
+    const [error, setError] = useState({ status: false, error: '' });
 
 
     //Genre List
@@ -27,9 +32,6 @@ const AppContextProvider = ({ children }) => {
             .then(res => {
                 setGenreList(res.data.genres);
             })
-            .catch(err => {
-                console.log(err);
-            });
     }, [genreList]);
 
     //Fetch movie list and set option to discover the movie list
@@ -38,7 +40,7 @@ const AppContextProvider = ({ children }) => {
             genre: selectedGenre ? selectedGenre.id : '',
             sort: sortOption,
         };
-
+        setMovieList([]);
         setPagination(1);
         fetchMovie(discovers);
     }, [selectedGenre, sortOption]);
@@ -51,12 +53,16 @@ const AppContextProvider = ({ children }) => {
 
     //Fetch movie list 
     const fetchMovie = ({ genre, sort }) => {
+        setIsLoading({ loading: true, loader: 'movie-list' });
+
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
-                setMovieList([...res.data.results])
+                setMovieList([...res.data.results]);
+                setIsLoading({ loading: false, loader: 'movie-list' });
             })
             .catch(err => {
-                console.log(err);
+                setIsLoading({ loading: false, loader: 'movie-list' });
+                setError({ status: true, error: 'fetch-movie-error' });
             });
     };
 
@@ -68,16 +74,20 @@ const AppContextProvider = ({ children }) => {
         const sort = sortOption;
         const page = pagination + 1;
 
+        setIsLoading({ loading: true, loader: 'load-more-movie' });
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
-                setMovieList([...movieList, ...res.data.results])
+                setMovieList([...movieList, ...res.data.results]);
+                setIsLoading({ loading: false, loader: 'load-more-movie' });
             })
             .catch(err => {
                 console.log(err);
+                setIsLoading({ loading: false, loader: 'load-more-movie' });
+                setError(err);
             });
     };
 
-    //
+    //Add favorite Movie
     const addFavoriteMovie = (newFavorite) => {
         let checkFavoriteMovie = _.find(listFavoriteMovie, newFavorite);
 
@@ -103,7 +113,9 @@ const AppContextProvider = ({ children }) => {
             pagination,
             setPagination,
             handleLoadMore,
-            addFavoriteMovie
+            addFavoriteMovie,
+            isLoading,
+            error,
         }}>
             {children}
         </MovieContext.Provider>
