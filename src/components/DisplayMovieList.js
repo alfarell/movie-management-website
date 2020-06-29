@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from 'react';
-import { Row, Spin, Col, Button, Typography } from 'antd';
+import { Row, Spin, Col, Button, Typography, Popover } from 'antd';
 import { MovieContext } from '../services/AppContextProvider';
 import CardContent from './CardContent';
 
@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 const RenderMovieList = ({ movieList, isLoading, error }) => {
     if (isLoading.loading && isLoading.loader === 'movie-list') return <Spin tip='Loading...' size='large' />;
-    if (error.status && error.error === 'movie-list') return <Text>Some Error is Occured</Text>
+    if (error.status && error.error === 'fetch-movie-error') return <Text>Some Error is Occured,{<br />} Please check your internet connection and try again</Text>
 
     return movieList.map(movie => {
         return (
@@ -30,10 +30,18 @@ const DisplayMovieList = () => {
 
             {movieList.length === 0
                 ? null
-                : <Button
-                    type='primary'
-                    loading={isLoading.loading && isLoading.loader === 'load-more-movie' ? true : false}
-                    onClick={handleLoadMore}> Load more </Button>
+                : <Popover
+                    visible={error.status && error.error === 'load-more-movie-error'}
+                    content='Load more movie failed, Try again'
+                >
+                    <Button
+                        type='primary'
+                        loading={isLoading.loading && isLoading.loader === 'load-more-movie'}
+                        onClick={handleLoadMore}
+                    >
+                        Load more
+                    </Button>
+                </Popover>
             }
         </Fragment>
     );

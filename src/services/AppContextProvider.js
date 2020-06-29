@@ -81,9 +81,8 @@ const AppContextProvider = ({ children }) => {
                 setIsLoading({ loading: false, loader: 'load-more-movie' });
             })
             .catch(err => {
-                console.log(err);
                 setIsLoading({ loading: false, loader: 'load-more-movie' });
-                setError(err);
+                setError({ status: true, error: 'load-more-movie-error' });
             });
     };
 
