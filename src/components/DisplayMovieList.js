@@ -1,14 +1,22 @@
 import React, { useContext, Fragment } from 'react';
-import { Row, Spin, Col, Button, Typography, Popover, Alert } from 'antd';
+import { Row, Spin, Col, Button, Alert } from 'antd';
 import { MovieContext } from '../services/AppContextProvider';
 import CardContent from './CardContent';
 
 
-const { Text } = Typography;
-
 const RenderMovieList = ({ movieList, isLoading, error }) => {
-    if (isLoading.loading && isLoading.loader === 'movie-list') return <Spin tip='Loading...' size='large' />;
-    if (error.status && error.error === 'fetch-movie-error') return <Text>Some Error is Occured,{<br />} Please check your internet connection and try again</Text>
+    if (isLoading.loading && isLoading.loader === 'movie-list') {
+        return <Spin tip='Loading...' size='large' />;
+    }
+    if (error.status && error.error === 'fetch-movie-error') {
+        return (
+            <Alert
+                description='Some Error is Occured, Please check your internet connection and refresh the page'
+                type='error'
+                showIcon
+            />
+        );
+    }
 
     return movieList.map(movie => {
         return (
@@ -24,7 +32,7 @@ const DisplayMovieList = () => {
 
     return (
         <Fragment>
-            <Row gutter={[5, 5]} justify='center'>
+            <Row gutter={[10, 10]} justify='center'>
                 <RenderMovieList {...{ movieList, isLoading, error }} />
             </Row>
 

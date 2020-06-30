@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Card, Rate, Button } from 'antd';
+import { Card, Rate } from 'antd';
 import _ from 'loadsh';
-import { StarFilled, HeartFilled } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 import { MovieContext } from '../services/AppContextProvider';
 import FavoriteButton from './FavoriteButton';
 

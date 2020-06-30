@@ -23,6 +23,10 @@
   padding: 0;
 }
 
+.display-movie-list .ant-card-body {
+  padding: 10px;
+}
+
 #favorite-button {
   position: absolute;
   top: 0;
