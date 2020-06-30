@@ -6,22 +6,23 @@ import Axios from 'axios';
 export const MovieContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-    //useState of movie and genre list
+    //movie and genre list
     const [movieList, setMovieList] = useState([]);
     const [genreList, setGenreList] = useState([]);
 
-    //useState of settings for fetching movie list with discover
+    //settings for fetching movie list with discover
     const [selectedGenre, setSelectedGenre] = useState(null);
     const [sortOption, setSortOption] = useState('popularity.desc');
     const [pagination, setPagination] = useState(1);
 
-    //useState of list favorited movie
+    //list favorited movie
     const [listFavoriteMovie, setListFavoriteMovie] = useState(() => {
         //to set the default value of list favorited movie from local storage
         const favoritedMovie = localStorage.getItem('favorite-movie');
         return favoritedMovie ? JSON.parse(favoritedMovie) : [];
     });
 
+    //loading and error state
     const [isLoading, setIsLoading] = useState({ loading: false, loader: '' });
     const [error, setError] = useState({ status: false, error: '' });
 
@@ -59,6 +60,7 @@ const AppContextProvider = ({ children }) => {
             .then(res => {
                 setMovieList([...res.data.results]);
                 setIsLoading({ loading: false, loader: 'movie-list' });
+                setError({ status: false, error: '' });
             })
             .catch(err => {
                 setIsLoading({ loading: false, loader: 'movie-list' });
@@ -79,6 +81,7 @@ const AppContextProvider = ({ children }) => {
             .then(res => {
                 setMovieList([...movieList, ...res.data.results]);
                 setIsLoading({ loading: false, loader: 'load-more-movie' });
+                setError({ status: false, error: '' });
             })
             .catch(err => {
                 setIsLoading({ loading: false, loader: 'load-more-movie' });

@@ -3,10 +3,11 @@ import { Card, Rate, Button } from 'antd';
 import _ from 'loadsh';
 import { StarFilled, HeartFilled } from '@ant-design/icons';
 import { MovieContext } from '../services/AppContextProvider';
+import FavoriteButton from './FavoriteButton';
 
 
 const CardContent = ({ data }) => {
-    const [displayFavorite, setDisplayFavorite] = useState({ display: 'none', filter: 'none' });
+    const [favoriteLabel, setFavoriteLabel] = useState({ display: 'none', filter: 'none' });
     const { addFavoriteMovie, listFavoriteMovie } = useContext(MovieContext);
 
     const favorite = _.find(listFavoriteMovie, data);
@@ -18,24 +19,21 @@ const CardContent = ({ data }) => {
             cover={
                 <div
                     style={{ width: '100%' }}
-                    onMouseEnter={() => setDisplayFavorite({ display: 'block', filter: 'blur(1px) brightness(70%)' })}
-                    onMouseLeave={() => setDisplayFavorite({ display: 'none', filter: 'none' })}
+                    onMouseEnter={() => setFavoriteLabel({ display: 'block', filter: 'blur(1px) brightness(70%)' })}
+                    onMouseLeave={() => setFavoriteLabel({ display: 'none', filter: 'none' })}
                 >
                     <img
                         src={process.env.REACT_APP_IMAGE_URL + data.poster_path}
-                        style={{ width: '100%', filter: displayFavorite.filter }}
+                        style={{ width: '100%', filter: favoriteLabel.filter }}
                         alt='movie-poster'
                     />
-                    <Button
-                        danger
-                        id='favorite-button'
+                    <FavoriteButton
+                        label={favorite ? 'Favorited' : 'Add to Favorite'}
                         type={favorite ? 'primary' : 'default'}
-                        icon={<HeartFilled style={{ color: favorite ? 'white' : 'red' }} />}
-                        style={{ display: favorite ? 'block' : displayFavorite.display }}
+                        iconStyle={{ color: favorite ? 'white' : 'red' }}
+                        style={{ display: favorite ? 'block' : favoriteLabel.display }}
                         onClick={() => addFavoriteMovie(data)}
-                    >
-                        {favorite ? 'Favorited' : 'Add to Favorite'}
-                    </Button>
+                    />
                 </div>
             }
         >
