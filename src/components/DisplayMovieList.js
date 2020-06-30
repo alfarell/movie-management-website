@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from 'react';
-import { Row, Spin, Col, Button, Typography, Popover } from 'antd';
+import { Row, Spin, Col, Button, Typography, Popover, Alert } from 'antd';
 import { MovieContext } from '../services/AppContextProvider';
 import CardContent from './CardContent';
 
@@ -30,10 +30,7 @@ const DisplayMovieList = () => {
 
             {movieList.length === 0
                 ? null
-                : <Popover
-                    visible={error.status && error.error === 'load-more-movie-error'}
-                    content='Load more movie failed, Try again'
-                >
+                : <Fragment>
                     <Button
                         type='primary'
                         loading={isLoading.loading && isLoading.loader === 'load-more-movie'}
@@ -41,7 +38,14 @@ const DisplayMovieList = () => {
                     >
                         Load more
                     </Button>
-                </Popover>
+                    <Alert
+                        message='Error'
+                        description='Failed to load more movie, please check your internet connection and try again'
+                        type='error'
+                        showIcon
+                        style={{ display: error.status && error.error === 'load-more-movie-error' ? 'block' : 'none' }}
+                    />
+                </Fragment>
             }
         </Fragment>
     );
