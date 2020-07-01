@@ -4,6 +4,7 @@ import _ from 'loadsh';
 import { StarFilled } from '@ant-design/icons';
 import { MovieContext } from '../services/AppContextProvider';
 import FavoriteButton from './FavoriteButton';
+import { Link } from 'react-router-dom';
 
 
 const CardContent = ({ data }) => {
@@ -25,27 +26,29 @@ const CardContent = ({ data }) => {
                 style={{ display: favorite ? 'block' : favoriteLabel.display }}
                 onClick={() => addFavoriteMovie(data)}
             />
-            <Card
-                hoverable
-                cover={
-                    <img
-                        src={process.env.REACT_APP_IMAGE_URL + data.poster_path}
-                        style={{ filter: favoriteLabel.filter }}
-                        alt='movie-poster'
-                    />
-                }
-                onClick={() => console.log('card test')}
-            >
-                <Card.Meta title={data.title} />
-                <Rate
-                    disabled
-                    value={data.vote_average / 2}
-                    style={{ maxWidth: 80 }}
-                    character={
-                        <StarFilled style={{ maxWidth: 8, minWidth: 2 }} />
+            <Link to={'/movie/' + data.id}>
+                <Card
+                    hoverable
+                    cover={
+                        <img
+                            src={process.env.REACT_APP_IMAGE_URL + data.poster_path}
+                            style={{ filter: favoriteLabel.filter }}
+                            alt='movie-poster'
+                        />
                     }
-                />
-            </Card>
+                    onClick={() => console.log('card test')}
+                >
+                    <Card.Meta title={data.title} />
+                    <Rate
+                        disabled
+                        value={data.vote_average / 2}
+                        style={{ maxWidth: 80 }}
+                        character={
+                            <StarFilled style={{ maxWidth: 8, minWidth: 2 }} />
+                        }
+                    />
+                </Card>
+            </Link>
         </div>
     );
 };

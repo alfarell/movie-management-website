@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import NavBar from '../components/NavBar';
 import HomePage from './HomePage';
 import FavoritesPage from './FavoritesPage';
+import MovieDetailPage from './MovieDetailPage';
 
 
 const { Header, Content, Footer } = Layout;
@@ -13,9 +14,10 @@ const MainContainer = () => {
             <Header style={{ padding: 0 }}>
                 <NavBar />
             </Header>
-            <Content style={{ padding: '10px 20px' }}>
+            <Content>
                 <Route path='/' exact component={HomePage} />
                 <Route path='/favorites' component={FavoritesPage} />
+                <Route path='/movie/:id' component={MovieDetailPage} />
             </Content>
             <Footer>Footer</Footer>
         </Fragment>
