@@ -13,40 +13,40 @@ const CardContent = ({ data }) => {
     const favorite = _.find(listFavoriteMovie, data);
 
     return (
-        <Card
-            hoverable
-            style={{ minWidth: '5rem', maxWidth: '11rem' }}
-            cover={
-                <div
-                    style={{ width: '100%' }}
-                    onMouseEnter={() => setFavoriteLabel({ display: 'block', filter: 'blur(1px) brightness(70%)' })}
-                    onMouseLeave={() => setFavoriteLabel({ display: 'none', filter: 'none' })}
-                >
+        <div
+            style={{ minWidth: '5rem', maxWidth: '11rem', position: 'relative' }}
+            onMouseEnter={() => setFavoriteLabel({ display: 'block', filter: 'blur(1px) brightness(70%)' })}
+            onMouseLeave={() => setFavoriteLabel({ display: 'none', filter: 'none' })}
+        >
+            <FavoriteButton
+                label={favorite ? 'Favorited' : 'Add to Favorite'}
+                type={favorite ? 'primary' : 'default'}
+                iconStyle={{ color: favorite ? 'white' : 'red' }}
+                style={{ display: favorite ? 'block' : favoriteLabel.display }}
+                onClick={() => addFavoriteMovie(data)}
+            />
+            <Card
+                hoverable
+                cover={
                     <img
                         src={process.env.REACT_APP_IMAGE_URL + data.poster_path}
-                        style={{ width: '100%', filter: favoriteLabel.filter }}
+                        style={{ filter: favoriteLabel.filter }}
                         alt='movie-poster'
                     />
-                    <FavoriteButton
-                        label={favorite ? 'Favorited' : 'Add to Favorite'}
-                        type={favorite ? 'primary' : 'default'}
-                        iconStyle={{ color: favorite ? 'white' : 'red' }}
-                        style={{ display: favorite ? 'block' : favoriteLabel.display }}
-                        onClick={() => addFavoriteMovie(data)}
-                    />
-                </div>
-            }
-        >
-            <Card.Meta title={data.title} />
-            <Rate
-                disabled
-                value={data.vote_average / 2}
-                style={{ maxWidth: 80 }}
-                character={
-                    <StarFilled style={{ maxWidth: 8, minWidth: 2 }} />
                 }
-            />
-        </Card>
+                onClick={() => console.log('card test')}
+            >
+                <Card.Meta title={data.title} />
+                <Rate
+                    disabled
+                    value={data.vote_average / 2}
+                    style={{ maxWidth: 80 }}
+                    character={
+                        <StarFilled style={{ maxWidth: 8, minWidth: 2 }} />
+                    }
+                />
+            </Card>
+        </div>
     );
 };
 

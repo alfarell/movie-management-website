@@ -11,7 +11,7 @@ const FavoriteButton = ({ label, type, onClick, style, iconStyle }) => {
             id='favorite-button'
             type={type}
             icon={<HeartFilled style={iconStyle} />}
-            style={style}
+            style={{ ...style, position: 'absolute', zIndex: 1 }}
             onMouseEnter={() => setShowLabel(true)}
             onMouseLeave={() => setShowLabel(false)}
             onClick={onClick}

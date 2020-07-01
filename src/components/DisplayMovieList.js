@@ -24,8 +24,8 @@ const RenderMovieList = ({ movieList, isLoading, error }) => {
                 <CardContent data={movie} />
             </Col>
         )
-    })
-}
+    });
+};
 
 const DisplayMovieList = () => {
     const { movieList, handleLoadMore, isLoading, error } = useContext(MovieContext);
