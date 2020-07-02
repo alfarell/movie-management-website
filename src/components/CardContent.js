@@ -20,10 +20,11 @@ const CardContent = ({ data }) => {
             onMouseLeave={() => setFavoriteLabel({ display: 'none', filter: 'none' })}
         >
             <FavoriteButton
+                hideMode={true}
                 label={favorite ? 'Favorited' : 'Add to Favorite'}
                 type={favorite ? 'primary' : 'default'}
                 iconStyle={{ color: favorite ? 'white' : 'red' }}
-                style={{ display: favorite ? 'block' : favoriteLabel.display }}
+                style={{ display: favorite ? 'block' : favoriteLabel.display, position: 'absolute' }}
                 onClick={() => addFavoriteMovie(data)}
             />
             <Link to={'/movie/' + data.id}>
@@ -36,7 +37,6 @@ const CardContent = ({ data }) => {
                             alt='movie-poster'
                         />
                     }
-                    onClick={() => console.log('card test')}
                 >
                     <Card.Meta title={data.title} />
                     <Rate
