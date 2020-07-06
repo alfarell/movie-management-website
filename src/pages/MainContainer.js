@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import NavBar from '../components/NavBar';
 import HomePage from './HomePage';
@@ -10,17 +10,19 @@ import MovieDetailPage from './MovieDetailPage';
 const { Header, Content, Footer } = Layout;
 const MainContainer = () => {
     return (
-        <Fragment>
+        <Router>
             <Header style={{ padding: 0 }}>
                 <NavBar />
             </Header>
             <Content>
-                <Route path='/' exact component={HomePage} />
-                <Route path='/favorites' component={FavoritesPage} />
-                <Route path='/movie/:id' component={MovieDetailPage} />
+                <Switch>
+                    <Route path='/' exact component={HomePage} />
+                    <Route path='/favorites' component={FavoritesPage} />
+                    <Route path='/movie/:id' component={MovieDetailPage} />
+                </Switch>
             </Content>
             <Footer>Footer</Footer>
-        </Fragment>
+        </Router>
     );
 };
 
