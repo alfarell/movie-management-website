@@ -93,10 +93,18 @@ const MovieDetailPage = ({ match }) => {
     return (
         <Fragment>
             <div style={{ boxShadow: '0 -7px 15px #999999', marginBottom: 10 }}>
-                <img src={process.env.REACT_APP_IMAGE_URL + backdrop_path} alt='background-poster' className='movie-detail-banner' />
+                <img
+                    src={process.env.REACT_APP_IMAGE_URL + backdrop_path}
+                    alt='background-poster'
+                    className='movie-detail-banner'
+                />
                 <Row gutter={[10, 10]} justify='center' align='bottom' style={{ padding: 20 }}>
                     <Col xs={9} sm={7} md={6} lg={5} xl={4} xxl={3} className='poster-container'>
-                        <img src={process.env.REACT_APP_IMAGE_URL + poster_path} alt='movie-poster' className='movie-detail-poster' />
+                        <img
+                            src={process.env.REACT_APP_IMAGE_URL + poster_path}
+                            alt='movie-poster'
+                            className='movie-detail-poster'
+                        />
                         <FavoriteButton
                             label={favorite ? 'Favorited' : 'Add to Favorite'}
                             type={favorite ? 'primary' : 'default'}
@@ -138,7 +146,10 @@ const MovieDetailPage = ({ match }) => {
                             <List.Item>
                                 <Card
                                     cover={
-                                        <img src={process.env.REACT_APP_IMAGE_URL + data.profile_path} alt='cast' />
+                                        <img
+                                            src={process.env.REACT_APP_IMAGE_URL + data.profile_path}
+                                            alt='cast'
+                                        />
                                     }
                                     style={{ minWidth: '5rem', maxWidth: '11rem' }}
                                 >

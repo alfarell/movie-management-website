@@ -7,6 +7,7 @@ const FavoriteButton = ({ label, type, hideMode, onClick, style, iconStyle }) =>
 
     return (
         <Button
+            data-testid='favorite-button-test'
             danger
             type={type}
             icon={<HeartFilled style={iconStyle} />}
@@ -16,7 +17,7 @@ const FavoriteButton = ({ label, type, hideMode, onClick, style, iconStyle }) =>
             onClick={onClick}
         >
             {hideMode
-                ? showLabel ? label : null
+                ? showLabel && label
                 : label
             }
         </Button>
