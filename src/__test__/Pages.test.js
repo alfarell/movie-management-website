@@ -4,8 +4,12 @@ import HomePage from '../pages/HomePage';
 import MainContainer from '../pages/MainContainer';
 import FavoritesPage from '../pages/FavoritesPage';
 import AppContextProvider from '../services/AppContextProvider';
-import { MemoryRouter } from 'react-router-dom';
-import NavBar from '../components/NavBar';
+import { render, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import MovieDetailPage from '../pages/MovieDetailPage';
+
+
+configure({ adapter: new Adapter() });
 
 beforeAll(() => {
     Object.defineProperty(window, 'matchMedia', {
@@ -24,18 +28,15 @@ beforeAll(() => {
     });
 });
 
-// test('render main container', () => {
-//     const component = renderer.create(
-//         <AppContextProvider>
-//             <MemoryRouter initialEntries={['/favorites']}>
-//                 <MainContainer />
-//             </MemoryRouter>
-//         </AppContextProvider>
-//     );
-//     const tree = component.toJSON();
+test('render main container', () => {
+    const component = render(
+        <AppContextProvider>
+            <MainContainer />
+        </AppContextProvider>
+    );
 
-//     expect(tree).toMatchSnapshot();
-// });
+    expect(component).toBeTruthy();
+});
 
 test('render home page', () => {
     const component = renderer.create(
@@ -52,6 +53,17 @@ test('render favorite page', () => {
     const component = renderer.create(
         <AppContextProvider>
             <FavoritesPage />
+        </AppContextProvider>
+    );
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+});
+
+test('render movie detail page', () => {
+    const component = renderer.create(
+        <AppContextProvider>
+            <MovieDetailPage match={{ params: { id: 1 } }} />
         </AppContextProvider>
     );
     const tree = component.toJSON();

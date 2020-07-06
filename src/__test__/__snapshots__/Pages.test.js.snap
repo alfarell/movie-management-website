@@ -324,3 +324,35 @@ exports[`render home page 1`] = `
   </div>
 </div>
 `;
+
+exports[`render movie detail page 1`] = `
+<div
+  className="movie-detail-container"
+>
+  <div
+    className="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
+  >
+    <span
+      className="ant-spin-dot ant-spin-dot-spin"
+    >
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+      <i
+        className="ant-spin-dot-item"
+      />
+    </span>
+    <div
+      className="ant-spin-text"
+    >
+      Loading...
+    </div>
+  </div>
+</div>
+`;
