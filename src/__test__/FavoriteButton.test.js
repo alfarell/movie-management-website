@@ -39,7 +39,7 @@ test('should hide label on mouse leave', async () => {
 
 
 describe('Favorite Button Snapshot', () => {
-  test('renders favorite button', () => {
+  it('renders favorite button', () => {
     const component = renderer.create(
       <FavoriteButton label='Add to Favorite' />
     );
@@ -47,7 +47,7 @@ describe('Favorite Button Snapshot', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('should show label when button is hovered', () => {
+  it('should show label when button is hovered', () => {
     const component = renderer.create(
       <FavoriteButton label='Add to Favorite' />
     );
