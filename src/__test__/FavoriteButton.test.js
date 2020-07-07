@@ -5,38 +5,6 @@ import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import FavoriteButton from '../components/FavoriteButton';
 
-test('should renders favorite button', async () => {
-  const { getByTestId } = render(
-    <FavoriteButton label='Add to Favorite' />
-  );
-
-  expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
-});
-
-test('should show label on mouse enter', async () => {
-  const { getByTestId } = render(
-    <FavoriteButton label='Add to Favorite' hideMode={true} />
-  );
-
-  act(() => {
-    fireEvent.mouseEnter(getByTestId('favorite-button-test'));
-  });
-
-  expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
-});
-
-test('should hide label on mouse leave', async () => {
-  const { getByTestId } = render(
-    <FavoriteButton label='Add to Favorite' hideMode={true} />
-  );
-
-  act(() => {
-    fireEvent.mouseLeave(getByTestId('favorite-button-test'));
-  });
-
-  expect(getByTestId('favorite-button-test')).not.toHaveTextContent('Add to Favorite');
-});
-
 
 describe('Favorite Button Snapshot', () => {
   it('renders favorite button', () => {
@@ -70,3 +38,28 @@ describe('Favorite Button Snapshot', () => {
   });
 })
 
+describe('Favorite button hover function test', () => {
+  it('should show label on mouse enter', async () => {
+    const { getByTestId } = render(
+      <FavoriteButton label='Add to Favorite' hideMode={true} />
+    );
+
+    act(() => {
+      fireEvent.mouseEnter(getByTestId('favorite-button-test'));
+    });
+
+    expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
+  });
+
+  it('should hide label on mouse leave', async () => {
+    const { getByTestId } = render(
+      <FavoriteButton label='Add to Favorite' hideMode={true} />
+    );
+
+    act(() => {
+      fireEvent.mouseLeave(getByTestId('favorite-button-test'));
+    });
+
+    expect(getByTestId('favorite-button-test')).not.toHaveTextContent('Add to Favorite');
+  });
+})
