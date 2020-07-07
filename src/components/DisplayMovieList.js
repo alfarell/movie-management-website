@@ -14,13 +14,14 @@ const RenderMovieList = ({ movieList, isLoading, error }) => {
                 description='Some Error is Occured, Please check your internet connection and refresh the page'
                 type='error'
                 showIcon
+                data-testid='movielist-error-message'
             />
         );
     }
 
     return movieList.map(movie => {
         return (
-            <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} >
+            <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} data-testid='movie-list'>
                 <CardContent data={movie} />
             </Col>
         )
