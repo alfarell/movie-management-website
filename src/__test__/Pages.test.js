@@ -3,10 +3,12 @@ import renderer from 'react-test-renderer';
 import HomePage from '../pages/HomePage';
 import MainContainer from '../pages/MainContainer';
 import FavoritesPage from '../pages/FavoritesPage';
-import AppContextProvider from '../services/AppContextProvider';
-import { render, configure } from 'enzyme';
+import AppContextProvider, { MovieContext } from '../services/AppContextProvider';
+import { configure } from 'enzyme';
+import { render } from '@testing-library/react';
 import Adapter from 'enzyme-adapter-react-16';
 import MovieDetailPage from '../pages/MovieDetailPage';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 configure({ adapter: new Adapter() });
@@ -23,7 +25,6 @@ beforeAll(() => {
             addEventListener: jest.fn(),
             removeEventListener: jest.fn(),
             dispatchEvent: jest.fn(),
-            split: jest.fn()
         })),
     });
 });
@@ -35,7 +36,7 @@ test('render main container', () => {
         </AppContextProvider>
     );
 
-    expect(component).toBeTruthy();
+    expect(component).toMatchSnapshot();
 });
 
 test('render home page', () => {
@@ -70,3 +71,27 @@ test('render movie detail page', () => {
 
     expect(tree).toMatchSnapshot();
 });
+
+describe('Favorite Page', () => {
+    it('should render favorite movie when data is not null', () => {
+        const listFavoriteMovie = [
+            {
+                id: 1,
+                title: 'test',
+                poster_path: 'test_poster',
+                vote_average: 9
+            }
+        ]
+        const component = render(
+            <MovieContext.Provider value={{ listFavoriteMovie }}>
+                <Router>
+                    <FavoritesPage />
+                </Router>
+            </MovieContext.Provider>
+        );
+
+        expect(component).toMatchSnapshot();
+        expect(component.getByTestId('favorite-list')).not.toBeNull();
+    })
+
+})
