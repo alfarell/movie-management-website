@@ -9,7 +9,7 @@ const FavoritesPage = () => {
     return (
         <div style={{ padding: '10px 20px' }}>
             <Card title='Favorite Movie' style={{ minHeight: '75vh' }}>
-                <Row gutter={[5, 5]} justify='center'>
+                <Row gutter={[5, 5]} justify='center' data-testid='favorite-list'>
                     {listFavoriteMovie.length === 0
                         ? <Empty description={'No Favorite Movie'} />
                         : listFavoriteMovie.map(movie => {
