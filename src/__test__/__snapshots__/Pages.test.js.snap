@@ -903,7 +903,7 @@ Object {
 }
 `;
 
-exports[`render favorite page 1`] = `
+exports[`Pages Snapshot render favorite page 1`] = `
 <div
   style={
     Object {
@@ -1027,7 +1027,7 @@ exports[`render favorite page 1`] = `
 </div>
 `;
 
-exports[`render home page 1`] = `
+exports[`Pages Snapshot render home page 1`] = `
 <div
   className="ant-row"
   style={
@@ -1229,7 +1229,7 @@ exports[`render home page 1`] = `
 </div>
 `;
 
-exports[`render main container 1`] = `
+exports[`Pages Snapshot render main container 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -1992,7 +1992,7 @@ Object {
 }
 `;
 
-exports[`render movie detail page 1`] = `
+exports[`Pages Snapshot render movie detail page 1`] = `
 <div
   className="movie-detail-container"
 >

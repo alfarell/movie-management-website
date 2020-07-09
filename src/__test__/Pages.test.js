@@ -29,48 +29,51 @@ beforeAll(() => {
     });
 });
 
-test('render main container', () => {
-    const component = render(
-        <AppContextProvider>
-            <MainContainer />
-        </AppContextProvider>
-    );
+describe('Pages Snapshot', () => {
+    it('render main container', () => {
+        const component = render(
+            <AppContextProvider>
+                <MainContainer />
+            </AppContextProvider>
+        );
 
-    expect(component).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
+    });
+
+    it('render home page', () => {
+        const component = renderer.create(
+            <AppContextProvider>
+                <HomePage />
+            </AppContextProvider>
+        );
+        const tree = component.toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('render favorite page', () => {
+        const component = renderer.create(
+            <AppContextProvider>
+                <FavoritesPage />
+            </AppContextProvider>
+        );
+        const tree = component.toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    it('render movie detail page', () => {
+        const component = renderer.create(
+            <AppContextProvider>
+                <MovieDetailPage match={{ params: { id: 1 } }} />
+            </AppContextProvider>
+        );
+        const tree = component.toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
 });
 
-test('render home page', () => {
-    const component = renderer.create(
-        <AppContextProvider>
-            <HomePage />
-        </AppContextProvider>
-    );
-    const tree = component.toJSON();
-
-    expect(tree).toMatchSnapshot();
-});
-
-test('render favorite page', () => {
-    const component = renderer.create(
-        <AppContextProvider>
-            <FavoritesPage />
-        </AppContextProvider>
-    );
-    const tree = component.toJSON();
-
-    expect(tree).toMatchSnapshot();
-});
-
-test('render movie detail page', () => {
-    const component = renderer.create(
-        <AppContextProvider>
-            <MovieDetailPage match={{ params: { id: 1 } }} />
-        </AppContextProvider>
-    );
-    const tree = component.toJSON();
-
-    expect(tree).toMatchSnapshot();
-});
 
 describe('Favorite Page', () => {
     it('should render favorite movie when data is not null', () => {
@@ -92,6 +95,5 @@ describe('Favorite Page', () => {
 
         expect(component).toMatchSnapshot();
         expect(component.getByTestId('favorite-list')).not.toBeNull();
-    })
-
-})
+    });
+});
