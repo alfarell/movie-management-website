@@ -71,7 +71,7 @@ describe('Display Filters functions and render genres', () => {
         expect(component.getByTestId('sort-by')).toHaveTextContent('release_date.asc');
     });
 
-    it('should render the genres', () => {
+    describe('Genres', () => {
         const genreList = [
             {
                 id: 1,
@@ -79,14 +79,39 @@ describe('Display Filters functions and render genres', () => {
             }
         ];
 
-        const component = render(
-            <MovieContext.Provider value={{ genreList }}>
-                <DisplayFilters />
-            </MovieContext.Provider>
-        );
-        expect(component).toMatchSnapshot();
+        it('should render the genres', () => {
+            const component = render(
+                <MovieContext.Provider value={{ genreList }}>
+                    <DisplayFilters />
+                </MovieContext.Provider>
+            );
+            expect(component).toMatchSnapshot();
 
-        fireEvent.click(component.getByText('Select Genre'), onclick);
-        expect(component.getByText('Test')).toBeTruthy();
+            fireEvent.click(component.getByText('Select Genre'), onclick);
+            expect(component.getByText('Test')).toBeTruthy();
+        });
+
+        it('should set genre to selected genre', () => {
+            const GenreTest = () => {
+                const { selectedGenre, setSelectedGenre } = useContext(MovieContext);
+
+                return (
+                    <MovieContext.Provider value={{ genreList, setSelectedGenre }}>
+                        <p data-testid='selected-genre'>{selectedGenre?.name}</p>
+                        <DisplayFilters />
+                    </MovieContext.Provider>
+                )
+            }
+            const component = render(
+                <AppContextProvider>
+                    <GenreTest />
+                </AppContextProvider>
+            );
+
+            fireEvent.click(component.getByText('Select Genre'), onclick);
+            fireEvent.click(component.getByText('Test'), onclick);
+
+            expect(component.getByTestId('selected-genre')).toHaveTextContent('Test');
+        });
     });
 });
