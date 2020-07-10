@@ -33,7 +33,7 @@ const AppContextProvider = ({ children }) => {
             .then(res => {
                 setGenreList(res.data.genres);
             })
-    }, [genreList]);
+    }, []);
 
     //Fetch movie list and set option to discover the movie list
     useEffect(() => {
