@@ -58,7 +58,7 @@ const AppContextProvider = ({ children }) => {
 
         Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page&with_genres=${genre}&sort_by=${sort}`)
             .then(res => {
-                setMovieList([...res.data.results]);
+                setMovieList(res.data.results);
                 setIsLoading({ loading: false, loader: 'movie-list' });
                 setError({ status: false, error: '' });
             })
