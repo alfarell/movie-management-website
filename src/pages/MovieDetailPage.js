@@ -13,32 +13,25 @@ const MovieDetailPage = ({ match }) => {
     const [movieDetail, setMovieDetail] = useState({});
     const [movieCredits, setMovieCredits] = useState({});
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
 
     const { addFavoriteMovie, listFavoriteMovie, movieList } = useContext(MovieContext);
 
     useEffect(() => {
         setLoading(true);
 
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}/credits?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US`)
-            .then(res => {
-                setMovieCredits(res.data);
-                setError(false);
-            })
-            .catch(res => {
-                setError(true);
-            });
+        const fetchData = async () => {
+            try {
+                await getMovieDetail();
+                await getMovieCredits();
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        }
 
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US`)
-            .then(res => {
-                setMovieDetail(res.data);
-                setError(false);
-                setLoading(false);
-            })
-            .catch(res => {
-                setError(true);
-                setLoading(false);
-            });
+        fetchData();
 
         return () => {
             setMovieCredits({});
@@ -46,7 +39,29 @@ const MovieDetailPage = ({ match }) => {
         }
     }, []);
 
-    if (loading) {
+    const getMovieDetail = async () => {
+        const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}`, {
+            params: {
+                api_key: process.env.REACT_APP_BASE_API_KEY,
+                language: 'en-US'
+            }
+        });
+
+        setMovieDetail(response.data);
+    }
+
+    const getMovieCredits = async () => {
+        const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}/credits`, {
+            params: {
+                api_key: process.env.REACT_APP_BASE_API_KEY,
+                language: 'en-US'
+            }
+        });
+
+        setMovieCredits(response.data);
+    }
+
+    if (loading === true) {
         return (
             <div className='movie-detail-container'>
                 <Spin size='large' tip='Loading...' />
