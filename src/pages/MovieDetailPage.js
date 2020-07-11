@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import Axios from 'axios';
 import _ from 'loadsh';
-import { Spin, Typography, Row, Col, Card, Rate, Tag, List, Alert } from 'antd';
+import { Spin, Typography, Row, Col, Card, Rate, Tag, Alert } from 'antd';
 import { StarFilled } from '@ant-design/icons';
-import FavoriteButton from '../components/FavoriteButton';
+import FavoriteButton from '../components/ButtonComponent/FavoriteButton';
 import { MovieContext } from '../services/AppContextProvider';
+import DisplayMovieCredits from '../components/MovieDetailComponent/DisplayMovieCredits';
 
 
 const { Title, Text, Paragraph } = Typography;
@@ -61,7 +62,7 @@ const MovieDetailPage = ({ match }) => {
         setMovieCredits(response.data);
     }
 
-    if (loading === true) {
+    if (loading) {
         return (
             <div className='movie-detail-container'>
                 <Spin size='large' tip='Loading...' />
@@ -149,32 +150,7 @@ const MovieDetailPage = ({ match }) => {
             <Card title='Overview' style={{ margin: 10 }}>
                 <Paragraph>{overview}</Paragraph>
             </Card>
-            <Card title='Cast' style={{ margin: 10 }}>
-                <List
-                    grid={{ gutter: 16, xs: 2, sm: 3, md: 4, lg: 5, xl: 7, xxl: 7 }}
-                    dataSource={cast}
-                    rowKey={({ id }) => id}
-                    itemLayout='horizontal'
-                    pagination={{ defaultPageSize: 14, showSizeChanger: false }}
-                    renderItem={data => {
-                        return (
-                            <List.Item>
-                                <Card
-                                    cover={
-                                        <img
-                                            src={process.env.REACT_APP_IMAGE_URL + data.profile_path}
-                                            alt='cast'
-                                        />
-                                    }
-                                    style={{ minWidth: '5rem', maxWidth: '11rem' }}
-                                >
-                                    <Card.Meta title={data.name} />
-                                </Card>
-                            </List.Item>
-                        )
-                    }}
-                />
-            </Card>
+            <DisplayMovieCredits movieCredit={cast} />
         </Fragment >
     );
 };
