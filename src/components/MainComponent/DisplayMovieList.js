@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from 'react';
 import { Row, Spin, Col, Button, Alert } from 'antd';
-import { MovieContext } from '../services/AppContextProvider';
+import { MovieContext } from '../../services/AppContextProvider';
 import CardContent from './CardContent';
 
 

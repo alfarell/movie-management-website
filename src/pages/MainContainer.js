@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Layout } from 'antd';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/MainComponent/NavBar';
 import HomePage from './HomePage';
 import FavoritesPage from './FavoritesPage';
 import MovieDetailPage from './MovieDetailPage';

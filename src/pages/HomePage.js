@@ -1,6 +1,6 @@
 import React from 'react';
-import DisplayFilters from '../components/DisplayFilters';
-import DisplayMovieList from '../components/DisplayMovieList';
+import DisplayFilters from '../components/MainComponent/DisplayFilters';
+import DisplayMovieList from '../components/MainComponent/DisplayMovieList';
 import { Row, Col, Card, Typography } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Card, Row, Col, Empty } from 'antd';
-import CardContent from '../components/CardContent';
+import CardContent from '../components/MainComponent/CardContent';
 import { MovieContext } from '../services/AppContextProvider';
 
 const FavoritesPage = () => {

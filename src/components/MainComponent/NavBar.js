@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Layout, Typography, Row, Col, Menu } from 'antd';
 import { PlayCircleOutlined, MenuOutlined } from '@ant-design/icons';
-import { AppPages } from '../utils/AppPages';
-import { MovieContext } from '../services/AppContextProvider';
+import { AppPages } from '../../utils/AppPages';
+import { MovieContext } from '../../services/AppContextProvider';
 
 
 const { Header } = Layout;
