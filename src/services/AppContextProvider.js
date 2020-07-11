@@ -29,10 +29,18 @@ const AppContextProvider = ({ children }) => {
 
     //Genre List
     useEffect(() => {
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/genre/list?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US`)
-            .then(res => {
-                setGenreList(res.data.genres);
+        const getGenreList = async () => {
+            const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/genre/list`, {
+                params: {
+                    api_key: process.env.REACT_APP_BASE_API_KEY,
+                    language: 'en-US'
+                }
             })
+
+            setGenreList(response.data.genres);
+        }
+
+        getGenreList();
     }, []);
 
     //Fetch movie list and set option to discover the movie list
@@ -53,23 +61,33 @@ const AppContextProvider = ({ children }) => {
 
 
     //Fetch movie list 
-    const fetchMovie = ({ genre, sort }) => {
+    const fetchMovie = async ({ genre, sort }) => {
         setIsLoading({ loading: true, loader: 'movie-list' });
 
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page&with_genres=${genre}&sort_by=${sort}`)
-            .then(res => {
-                setMovieList(res.data.results);
-                setIsLoading({ loading: false, loader: 'movie-list' });
-                setError({ status: false, error: '' });
-            })
-            .catch(err => {
-                setIsLoading({ loading: false, loader: 'movie-list' });
-                setError({ status: true, error: 'fetch-movie-error' });
+        try {
+            const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie`, {
+                params: {
+                    api_key: process.env.REACT_APP_BASE_API_KEY,
+                    language: 'en-US',
+                    include_adult: false,
+                    include_video: false,
+                    with_genres: genre,
+                    sort_by: sort
+                }
             });
+
+            setMovieList(response.data.results);
+            setError({ status: false, error: '' });
+        } catch (err) {
+            setError({ status: true, error: 'fetch-movie-error' });
+        } finally {
+            setIsLoading({ loading: false, loader: 'movie-list' });
+        }
+
     };
 
     //Handle load more movie
-    const handleLoadMore = () => {
+    const handleLoadMore = async () => {
         setPagination(pagination + 1);
 
         const genre = selectedGenre ? selectedGenre.id : '';
@@ -77,16 +95,27 @@ const AppContextProvider = ({ children }) => {
         const page = pagination + 1;
 
         setIsLoading({ loading: true, loader: 'load-more-movie' });
-        Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie?api_key=${process.env.REACT_APP_BASE_API_KEY}&language=en-US&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&sort_by=${sort}`)
-            .then(res => {
-                setMovieList([...movieList, ...res.data.results]);
-                setIsLoading({ loading: false, loader: 'load-more-movie' });
-                setError({ status: false, error: '' });
-            })
-            .catch(err => {
-                setIsLoading({ loading: false, loader: 'load-more-movie' });
-                setError({ status: true, error: 'load-more-movie-error' });
+
+        try {
+            const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie`, {
+                params: {
+                    api_key: process.env.REACT_APP_BASE_API_KEY,
+                    language: 'en-US',
+                    include_adult: false,
+                    include_video: false,
+                    with_genres: genre,
+                    sort_by: sort,
+                    page: page
+                }
             });
+
+            setMovieList([...movieList, ...response.data.results]);
+            setError({ status: false, error: '' });
+        } catch (err) {
+            setError({ status: true, error: 'load-more-movie-error' });
+        } finally {
+            setIsLoading({ loading: false, loader: 'load-more-movie' });
+        }
     };
 
     //Add favorite Movie
