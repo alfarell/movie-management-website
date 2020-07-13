@@ -21,18 +21,14 @@ const MovieDetailPage = ({ match }) => {
     useEffect(() => {
         setLoading(true);
 
-        const fetchData = async () => {
-            try {
-                await getMovieDetail();
-                await getMovieCredits();
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchData();
+        fetchData(
+            `${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}`,
+            setMovieDetail
+        );
+        fetchData(
+            `${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}/credits`,
+            setMovieCredits
+        );
 
         return () => {
             setMovieCredits({});
@@ -40,26 +36,21 @@ const MovieDetailPage = ({ match }) => {
         }
     }, []);
 
-    const getMovieDetail = async () => {
-        const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}`, {
-            params: {
-                api_key: process.env.REACT_APP_BASE_API_KEY,
-                language: 'en-US'
-            }
-        });
+    const fetchData = async (url, setState) => {
+        try {
+            const response = await Axios.get(url, {
+                params: {
+                    api_key: process.env.REACT_APP_BASE_API_KEY,
+                    language: 'en-US'
+                }
+            });
 
-        setMovieDetail(response.data);
-    }
-
-    const getMovieCredits = async () => {
-        const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}/credits`, {
-            params: {
-                api_key: process.env.REACT_APP_BASE_API_KEY,
-                language: 'en-US'
-            }
-        });
-
-        setMovieCredits(response.data);
+            setState(response.data);
+        } catch (err) {
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
     }
 
     if (loading) {
