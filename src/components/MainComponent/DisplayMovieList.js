@@ -17,13 +17,16 @@ const DisplayMovieList = () => {
                         </Col>
                     )
                 })}
+            </Row>
+
+            <Row justify='center'>
                 {loading && <Spin tip='Loading...' size='large' />}
-                {error.status && (<Alert
+                {error.status && <Alert
                     description='Some Error is Occured, Please check your internet connection and try again or refresh the page'
                     type='error'
                     showIcon
                     data-testid='movielist-error-message'
-                />)}
+                />}
             </Row>
 
             {!loading && movieList.length > 0 &&
