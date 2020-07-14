@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react';
 import { MovieContext } from '../services/AppContextProvider';
-import DisplayMovieList from '../components/DisplayMovieList';
+import DisplayMovieList from '../components/MainComponent/DisplayMovieList';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 beforeAll(() => {
@@ -59,6 +59,6 @@ test('should render error message when failed to get movie list', () => {
 
     expect(component).toMatchSnapshot();
     expect(component.getByTestId('movielist-error-message')).toHaveTextContent(
-        'Some Error is Occured, Please check your internet connection and refresh the page'
+        'Some Error is Occured, Please check your internet connection and try again or refresh the page'
     );
 })

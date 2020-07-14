@@ -1196,6 +1196,10 @@ exports[`Pages Snapshot render home page 1`] = `
               "marginTop": -5,
             }
           }
+        />
+        <div
+          className="ant-row ant-row-center"
+          style={Object {}}
         >
           <div
             className="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
@@ -1547,6 +1551,9 @@ Object {
                 <div
                   class="ant-row ant-row-center"
                   style="margin: -5px -5px 5px -5px;"
+                />
+                <div
+                  class="ant-row ant-row-center"
                 >
                   <div
                     class="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
@@ -1900,6 +1907,9 @@ Object {
               <div
                 class="ant-row ant-row-center"
                 style="margin: -5px -5px 5px -5px;"
+              />
+              <div
+                class="ant-row ant-row-center"
               >
                 <div
                   class="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"

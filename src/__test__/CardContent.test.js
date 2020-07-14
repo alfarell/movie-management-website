@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import CardContent from '../components/CardContent';
+import CardContent from '../components/MainComponent/CardContent';
 import AppContextProvider from '../services/AppContextProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 

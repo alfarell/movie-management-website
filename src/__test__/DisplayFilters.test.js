@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import renderer from 'react-test-renderer';
 import AppContextProvider, { MovieContext } from '../services/AppContextProvider';
-import DisplayFilters from '../components/DisplayFilters';
+import DisplayFilters from '../components/MainComponent/DisplayFilters';
 import { render, fireEvent } from '@testing-library/react';
 import { mockComponent } from 'react-dom/test-utils';
 
