@@ -11,7 +11,7 @@ const AppContextProvider = ({ children }) => {
     const [genreList, setGenreList] = useState([]);
 
     //settings for fetching movie list with discover
-    const [selectedGenre, setSelectedGenre] = useState(null);
+    const [selectedGenre, setSelectedGenre] = useState('');
     const [sortOption, setSortOption] = useState('popularity.desc');
     const [pagination, setPagination] = useState(1);
 
@@ -23,7 +23,7 @@ const AppContextProvider = ({ children }) => {
     });
 
     //loading and error state
-    const [isLoading, setIsLoading] = useState({ loading: false, loader: '' });
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState({ status: false, error: '' });
 
 
@@ -48,11 +48,35 @@ const AppContextProvider = ({ children }) => {
         const discovers = {
             genre: selectedGenre ? selectedGenre.id : '',
             sort: sortOption,
+            page: 1
         };
+
         setMovieList([]);
-        setPagination(1);
-        fetchMovie(discovers);
+        setLoading(true);
+        setError({ status: false, error: 'fetch-movie-error' });
+
+        fetchMovie(data => setMovieList(data), {
+            loader: 'fetch-movie',
+            fetchOption: discovers
+        });
     }, [selectedGenre, sortOption]);
+
+    //Load more movie
+    useEffect(() => {
+        const discovers = {
+            genre: selectedGenre ? selectedGenre.id : '',
+            sort: sortOption,
+            page: pagination
+        };
+
+        setLoading(true);
+        setError({ status: false, error: 'load-more-movie-error' });
+
+        fetchMovie(data => setMovieList([...movieList, ...data]), {
+            loader: 'load-more-movie',
+            fetchOption: discovers
+        });
+    }, [pagination]);
 
     //Save the favorited movie list to local storage
     useEffect(() => {
@@ -61,41 +85,7 @@ const AppContextProvider = ({ children }) => {
 
 
     //Fetch movie list 
-    const fetchMovie = async ({ genre, sort }) => {
-        setIsLoading({ loading: true, loader: 'movie-list' });
-
-        try {
-            const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie`, {
-                params: {
-                    api_key: process.env.REACT_APP_BASE_API_KEY,
-                    language: 'en-US',
-                    include_adult: false,
-                    include_video: false,
-                    with_genres: genre,
-                    sort_by: sort
-                }
-            });
-
-            setMovieList(response.data.results);
-            setError({ status: false, error: '' });
-        } catch (err) {
-            setError({ status: true, error: 'fetch-movie-error' });
-        } finally {
-            setIsLoading({ loading: false, loader: 'movie-list' });
-        }
-
-    };
-
-    //Handle load more movie
-    const handleLoadMore = async () => {
-        setPagination(pagination + 1);
-
-        const genre = selectedGenre ? selectedGenre.id : '';
-        const sort = sortOption;
-        const page = pagination + 1;
-
-        setIsLoading({ loading: true, loader: 'load-more-movie' });
-
+    const fetchMovie = async (setData, { loader, fetchOption: { genre, sort, page } }) => {
         try {
             const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie`, {
                 params: {
@@ -105,17 +95,18 @@ const AppContextProvider = ({ children }) => {
                     include_video: false,
                     with_genres: genre,
                     sort_by: sort,
-                    page: page
+                    page: page,
                 }
             });
 
-            setMovieList([...movieList, ...response.data.results]);
-            setError({ status: false, error: '' });
+            setData(response.data.results);
+
         } catch (err) {
-            setError({ status: true, error: 'load-more-movie-error' });
+            setError({ status: true, error: loader + '-error' });
         } finally {
-            setIsLoading({ loading: false, loader: 'load-more-movie' });
+            setLoading(false);
         }
+
     };
 
     //Add favorite Movie
@@ -143,9 +134,8 @@ const AppContextProvider = ({ children }) => {
             setSortOption,
             pagination,
             setPagination,
-            handleLoadMore,
             addFavoriteMovie,
-            isLoading,
+            loading,
             error,
         }}>
             {children}

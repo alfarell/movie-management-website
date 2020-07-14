@@ -4,57 +4,36 @@ import { MovieContext } from '../../services/AppContextProvider';
 import CardContent from './CardContent';
 
 
-const RenderMovieList = ({ movieList, isLoading, error }) => {
-    if (isLoading.loading && isLoading.loader === 'movie-list') {
-        return <Spin tip='Loading...' size='large' />;
-    }
-    if (error.status && error.error === 'fetch-movie-error') {
-        return (
-            <Alert
-                description='Some Error is Occured, Please check your internet connection and refresh the page'
-                type='error'
-                showIcon
-                data-testid='movielist-error-message'
-            />
-        );
-    }
-
-    return movieList.map(movie => {
-        return (
-            <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} data-testid='movie-list'>
-                <CardContent data={movie} />
-            </Col>
-        )
-    });
-};
-
 const DisplayMovieList = () => {
-    const { movieList, handleLoadMore, isLoading, error } = useContext(MovieContext);
+    const { movieList, setPagination, loading, error } = useContext(MovieContext);
 
     return (
         <Fragment>
             <Row gutter={[10, 10]} justify='center'>
-                <RenderMovieList {...{ movieList, isLoading, error }} />
+                {movieList.map(movie => {
+                    return (
+                        <Col key={movie.id} xs={11} sm={7} md={6} lg={6} xl={4} xxl={3} data-testid='movie-list'>
+                            <CardContent data={movie} />
+                        </Col>
+                    )
+                })}
+                {loading && <Spin tip='Loading...' size='large' />}
+                {error.status && (<Alert
+                    description='Some Error is Occured, Please check your internet connection and try again or refresh the page'
+                    type='error'
+                    showIcon
+                    data-testid='movielist-error-message'
+                />)}
             </Row>
 
-            {movieList.length === 0
-                ? null
-                : <Fragment>
-                    <Button
-                        type='primary'
-                        loading={isLoading.loading && isLoading.loader === 'load-more-movie'}
-                        onClick={handleLoadMore}
-                    >
-                        Load more
-                    </Button>
-                    <Alert
-                        message='Error'
-                        description='Failed to load more movie, please check your internet connection and try again'
-                        type='error'
-                        showIcon
-                        style={{ display: error.status && error.error === 'load-more-movie-error' ? 'block' : 'none' }}
-                    />
-                </Fragment>
+            {!loading && movieList.length > 0 &&
+                (<Button
+                    type='primary'
+                    loading={loading}
+                    onClick={() => setPagination(pagination => pagination + 1)}
+                >
+                    Load more
+                </Button>)
             }
         </Fragment>
     );
