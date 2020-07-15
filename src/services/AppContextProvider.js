@@ -111,13 +111,20 @@ const AppContextProvider = ({ children }) => {
 
     //Add favorite Movie
     const addFavoriteMovie = (newFavorite) => {
-        let checkFavoriteMovie = _.find(listFavoriteMovie, newFavorite);
+        const newFavoriteData = {
+            id: newFavorite.id,
+            title: newFavorite.title,
+            poster_path: newFavorite.poster_path,
+            vote_average: newFavorite.vote_average
+        }
+
+        const checkFavoriteMovie = _.find(listFavoriteMovie, newFavoriteData);
 
         checkFavoriteMovie
             ? setListFavoriteMovie(listFavoriteMovie.filter((favorited) => {
-                return favorited.id !== newFavorite.id
+                return favorited.id !== newFavoriteData.id
             }))
-            : setListFavoriteMovie([...listFavoriteMovie, newFavorite]);
+            : setListFavoriteMovie([...listFavoriteMovie, newFavoriteData]);
     };
 
     return (
