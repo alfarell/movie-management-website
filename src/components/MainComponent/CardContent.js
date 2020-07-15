@@ -11,7 +11,9 @@ const CardContent = ({ data }) => {
     const [favoriteLabel, setFavoriteLabel] = useState({ display: 'none', filter: 'none' });
     const { addFavoriteMovie, listFavoriteMovie } = useContext(MovieContext);
 
-    const favorite = _.find(listFavoriteMovie, data);
+    const favorite = _.find(listFavoriteMovie, (favorited) => {
+        return favorited.id === data.id
+    });
 
     return (
         <div
