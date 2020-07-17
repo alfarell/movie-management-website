@@ -46,7 +46,7 @@ const AppContextProvider = ({ children }) => {
     //Fetch movie list and set option to discover the movie list
     useEffect(() => {
         const discovers = {
-            genre: selectedGenre ? selectedGenre.id : '',
+            genre: selectedGenre?.id,
             sort: sortOption,
             page: 1
         };
@@ -64,7 +64,7 @@ const AppContextProvider = ({ children }) => {
     //Load more movie
     useEffect(() => {
         const discovers = {
-            genre: selectedGenre ? selectedGenre.id : '',
+            genre: selectedGenre?.id,
             sort: sortOption,
             page: pagination
         };
