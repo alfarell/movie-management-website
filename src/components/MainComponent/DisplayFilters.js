@@ -10,7 +10,7 @@ const DisplayFilters = () => {
             <div>
                 {
                     selectedGenre
-                        ? <Tag color='blue' closable onClose={() => setSelectedGenre(null)} data-testid='selected-genre'>{selectedGenre.name}</Tag>
+                        ? <Tag color='blue' closable onClose={() => setSelectedGenre({})} data-testid='selected-genre'>{selectedGenre.name}</Tag>
                         : null
                 }
             </div>

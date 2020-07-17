@@ -11,7 +11,7 @@ const AppContextProvider = ({ children }) => {
     const [genreList, setGenreList] = useState([]);
 
     //settings for fetching movie list with discover
-    const [selectedGenre, setSelectedGenre] = useState('');
+    const [selectedGenre, setSelectedGenre] = useState({});
     const [sortOption, setSortOption] = useState('popularity.desc');
     const [pagination, setPagination] = useState(1);
 
