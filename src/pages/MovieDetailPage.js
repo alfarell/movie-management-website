@@ -16,7 +16,7 @@ const MovieDetailPage = ({ match }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const { addFavoriteMovie, listFavoriteMovie, movieList } = useContext(MovieContext);
+    const { addFavoriteMovie, listFavoriteMovie } = useContext(MovieContext);
 
     useEffect(() => {
         setLoading(true);
@@ -34,7 +34,7 @@ const MovieDetailPage = ({ match }) => {
             setMovieCredits({});
             setMovieDetail({});
         }
-    }, []);
+    }, [match.params.id]);
 
     const fetchData = async (url, setState) => {
         try {
@@ -89,14 +89,6 @@ const MovieDetailPage = ({ match }) => {
         return data.id === movieDetail.id;
     });
 
-    const handleAddFavorite = (id) => {
-        const newFavoriteMovie = _.find(movieList, (data) => {
-            return data.id === id;
-        });
-
-        addFavoriteMovie(newFavoriteMovie);
-    }
-
     return (
         <Fragment>
             <div style={{ boxShadow: '0 -7px 15px #999999', marginBottom: 10 }}>
@@ -117,7 +109,7 @@ const MovieDetailPage = ({ match }) => {
                             type={favorite ? 'primary' : 'default'}
                             iconStyle={{ color: favorite ? 'white' : 'red' }}
                             style={{ minWidth: '6rem', maxWidth: '12rem', width: '100%', marginTop: 5 }}
-                            onClick={() => handleAddFavorite(movieDetail.id)}
+                            onClick={() => addFavoriteMovie(movieDetail)}
                         />
                     </Col>
                     <Col xs={14} sm={13} md={11} lg={9} xl={8} xxl={7}>
