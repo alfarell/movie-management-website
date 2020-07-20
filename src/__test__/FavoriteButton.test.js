@@ -1,64 +1,59 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import renderer from 'react-test-renderer';
+import React from 'react'
+import { render, act, fireEvent } from '@testing-library/react';
 import FavoriteButton from '../components/ButtonComponent/FavoriteButton';
 
 
-describe('Favorite Button Snapshot', () => {
-  it('renders favorite button', () => {
-    const component = renderer.create(
-      <FavoriteButton label='Add to Favorite' />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+describe('Favorite Button', () => {
+    it('render favorite button', () => {
+        const component = render(
+            <FavoriteButton label={'Add to Favorite'} hideMode={false} />
+        );
 
-  it('should show label when button is hovered', () => {
-    const component = renderer.create(
-      <FavoriteButton label='Add to Favorite' />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-
-    renderer.act(() => {
-      tree.props.onMouseEnter();
-    })
-
-    tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-
-    renderer.act(() => {
-      tree.props.onMouseLeave();
-    })
-
-    tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-})
-
-describe('Favorite button hover function test', () => {
-  it('should show label on mouse enter', async () => {
-    const { getByTestId } = render(
-      <FavoriteButton label='Add to Favorite' hideMode={true} />
-    );
-
-    act(() => {
-      fireEvent.mouseEnter(getByTestId('favorite-button-test'));
+        expect(component).toMatchSnapshot();
+        expect(component.getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
     });
 
-    expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
-  });
+    it('render favorite button hide mode(hidden label)', () => {
+        const component = render(
+            <FavoriteButton label={'Add to Favorite'} hideMode={true} />
+        );
 
-  it('should hide label on mouse leave', async () => {
-    const { getByTestId } = render(
-      <FavoriteButton label='Add to Favorite' hideMode={true} />
-    );
-
-    act(() => {
-      fireEvent.mouseLeave(getByTestId('favorite-button-test'));
+        expect(component).toMatchSnapshot();
+        expect(component.getByTestId('favorite-button-test')).not.toHaveTextContent('Add to Favorite');
     });
 
-    expect(getByTestId('favorite-button-test')).not.toHaveTextContent('Add to Favorite');
-  });
-})
+    describe('Hover on Favorite Button hidden mode/hidden label', () => {
+        it('should show label on mouse enter', () => {
+            const { getByTestId, getByText } = render(
+                <FavoriteButton label={'Add to Favorite'} hideMode={true} />
+            );
+
+            act(() => {
+                fireEvent.mouseEnter(getByTestId('favorite-button-test'));
+            });
+
+            expect(getByText('Add to Favorite')).toBeInTheDocument();
+            expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
+        });
+
+        it('should hide label on mouse leave', () => {
+            const { getByTestId, getByText } = render(
+                <FavoriteButton label={'Add to Favorite'} hideMode={true} />
+            );
+
+            act(() => {
+                fireEvent.mouseEnter(getByTestId('favorite-button-test'));
+            });
+
+            expect(getByText('Add to Favorite')).toBeInTheDocument();
+            expect(getByTestId('favorite-button-test')).toHaveTextContent('Add to Favorite');
+
+            act(() => {
+                fireEvent.mouseLeave(getByTestId('favorite-button-test'));
+            });
+
+            expect(getByTestId('favorite-button-test')).not.toHaveTextContent('Add to Favorite');
+        });
+    });
+
+});

@@ -1,117 +1,152 @@
 import React, { useContext } from 'react';
-import renderer from 'react-test-renderer';
+import Axios from 'axios';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
 import AppContextProvider, { MovieContext } from '../services/AppContextProvider';
 import DisplayFilters from '../components/MainComponent/DisplayFilters';
-import { render, fireEvent } from '@testing-library/react';
-import { mockComponent } from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
+import mockFetchData from '../__mocks__/mockFetchData';
+import { mockGenreList } from '../__mocks__/mockResult';
 
-describe('Display Filter Snapshot', () => {
-    it('render display filters', () => {
-        const component = renderer.create(
-            <AppContextProvider>
-                <DisplayFilters />
-            </AppContextProvider>
-        );
-        const tree = component.toJSON();
 
-        expect(tree).toMatchSnapshot();
+describe('Display Filters Component', () => {
+    afterEach(() => {
+        Axios.get.mockClear();
     });
-});
 
-describe('Display Filters functions and render genres', () => {
     const TestComponent = () => {
         const { sortOption } = useContext(MovieContext);
-
         return (
             <div>
-                <p data-testid='sort-by'>{sortOption}</p>
+                <p data-testid='selected-sort-option'>{sortOption}</p>
             </div>
-        );
-    };
+        )
+    }
 
-    it('should set sort option to popularity', () => {
+    it('display filter snapshot', async () => {
+        await mockFetchData(mockGenreList);
+
         const component = render(
+            <AppContextProvider>
+                <DisplayFilters />
+            </AppContextProvider>
+        );
+
+        expect(component).toMatchSnapshot();
+
+        const genreList = await waitForElement(() => component.getByText('Select Genre'));
+        expect(genreList).toBeInTheDocument();
+    });
+
+    it('selected sort option should be popularity.desc', async () => {
+        await mockFetchData(mockGenreList);
+
+        const { getByText, getByTestId } = render(
             <AppContextProvider>
                 <TestComponent />
                 <DisplayFilters />
             </AppContextProvider>
         );
 
-        fireEvent.click(component.getByText('Sort By'), onclick);
-        fireEvent.click(component.getByText('Popularity'), onclick);
-
-        expect(component.getByTestId('sort-by')).toHaveTextContent('popularity.desc');
-    });
-
-    it('should set sort option to latest release', () => {
-        const component = render(
-            <AppContextProvider>
-                <TestComponent />
-                <DisplayFilters />
-            </AppContextProvider>
-        );
-
-        fireEvent.click(component.getByText('Sort By'), onclick);
-        fireEvent.click(component.getByText('Latest Release'), onclick);
-
-        expect(component.getByTestId('sort-by')).toHaveTextContent('release_date.desc');
-    });
-
-    it('should set sort option to oldest release', async () => {
-        const component = render(
-            <AppContextProvider>
-                <TestComponent />
-                <DisplayFilters />
-            </AppContextProvider>
-        );
-
-        fireEvent.click(component.getByText('Sort By'), onclick);
-        fireEvent.click(component.getByText('Oldest Release'), onclick);
-
-        expect(component.getByTestId('sort-by')).toHaveTextContent('release_date.asc');
-    });
-
-    describe('Genres', () => {
-        const genreList = [
-            {
-                id: 1,
-                name: 'Test'
-            }
-        ];
-
-        it('should render the genres', () => {
-            const component = render(
-                <MovieContext.Provider value={{ genreList }}>
-                    <DisplayFilters />
-                </MovieContext.Provider>
-            );
-            expect(component).toMatchSnapshot();
-
-            fireEvent.click(component.getByText('Select Genre'), onclick);
-            expect(component.getByText('Test')).toBeTruthy();
+        await act(async () => {
+            await fireEvent.click(getByText('Sort By'));
+            await fireEvent.click(getByText('Popularity'));
         });
 
-        it('should set genre to selected genre', () => {
-            const GenreTest = () => {
-                const { selectedGenre, setSelectedGenre } = useContext(MovieContext);
-
-                return (
-                    <MovieContext.Provider value={{ genreList, setSelectedGenre }}>
-                        <p data-testid='selected-genre'>{selectedGenre?.name}</p>
-                        <DisplayFilters />
-                    </MovieContext.Provider>
-                )
-            }
-            const component = render(
-                <AppContextProvider>
-                    <GenreTest />
-                </AppContextProvider>
-            );
-
-            fireEvent.click(component.getByText('Select Genre'), onclick);
-            fireEvent.click(component.getByText('Test'), onclick);
-
-            expect(component.getByTestId('selected-genre')).toHaveTextContent('Test');
-        });
+        expect(getByTestId('selected-sort-option')).toHaveTextContent('popularity.desc');
     });
+
+    it('selected sort option should be release_date.desc', async () => {
+        await mockFetchData(mockGenreList);
+
+        const { getByText, getByTestId } = render(
+            <AppContextProvider>
+                <TestComponent />
+                <DisplayFilters />
+            </AppContextProvider>
+        );
+
+        await act(async () => {
+            await fireEvent.click(getByText('Sort By'));
+            await fireEvent.click(getByText('Latest Release'));
+        });
+
+        expect(getByTestId('selected-sort-option')).toHaveTextContent('release_date.desc');
+    });
+
+    it('selected sort option should be release_date.asc', async () => {
+        await mockFetchData(mockGenreList);
+
+        const { getByText, getByTestId } = render(
+            <AppContextProvider>
+                <TestComponent />
+                <DisplayFilters />
+            </AppContextProvider>
+        );
+
+        await act(async () => {
+            await fireEvent.click(getByText('Sort By'));
+            await fireEvent.click(getByText('Oldest Release'));
+        });
+
+        expect(getByTestId('selected-sort-option')).toHaveTextContent('release_date.asc');
+    });
+
+    it('render genre list and show selected genre', async () => {
+        await mockFetchData(mockGenreList);
+
+        const { getByText, getByTestId } = render(
+            <AppContextProvider>
+                <DisplayFilters />
+            </AppContextProvider>
+        );
+
+        const genreList = await waitForElement(() => getByText('Select Genre'));
+        expect(genreList).toBeInTheDocument();
+
+        await act(async () => {
+            await fireEvent.click(getByText('Select Genre'));
+        });
+
+        const genreFantasy = await waitForElement(() => getByText('Fantasy'));
+        const genreSciFi = await waitForElement(() => getByText('Sci-Fi'));
+
+        expect(genreFantasy).toBeInTheDocument();
+        expect(genreSciFi).toBeInTheDocument();
+
+        await act(async () => {
+            await fireEvent.click(getByText('Fantasy'));
+        });
+
+        const selectedGenre = await waitForElement(() => getByTestId('selected-genre'));
+        expect(selectedGenre).toHaveTextContent('Fantasy');
+    });
+
+    it('should remove selected genre when genre tag is closed', async () => {
+        await mockFetchData(mockGenreList);
+
+        const { getByText, getByTestId, container } = render(
+            <AppContextProvider>
+                <DisplayFilters />
+            </AppContextProvider>
+        );
+
+        const genreList = await waitForElement(() => getByText('Select Genre'));
+        expect(genreList).toBeInTheDocument();
+
+        await act(async () => {
+            await fireEvent.click(getByText('Select Genre'));
+            await fireEvent.click(getByText('Fantasy'));
+        });
+
+        const selectedGenre = await waitForElement(() => getByTestId('selected-genre'));
+        expect(selectedGenre).toHaveTextContent('Fantasy');
+
+        act(() => {
+            fireEvent.click(getByTestId('selected-genre').lastChild);
+        });
+
+        const tagContainer = await waitForElement(() => getByTestId('tag-container'));
+        expect(tagContainer).toBeEmpty();
+    });
+
 });

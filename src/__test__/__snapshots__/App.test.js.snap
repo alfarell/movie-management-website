@@ -1,0 +1,828 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render App.js 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <header
+        class="ant-layout-header"
+        style="padding: 0px;"
+      >
+        <header
+          class="ant-layout-header nav-bar"
+        >
+          <div
+            class="ant-row ant-row-space-between"
+          >
+            <div
+              class="ant-col"
+              style="display: flex; align-items: center;"
+            >
+              <h1
+                class="ant-typography"
+                style="margin: 0px;"
+              >
+                <span
+                  aria-label="play-circle"
+                  class="anticon anticon-play-circle"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class=""
+                    data-icon="play-circle"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                    />
+                    <path
+                      d="M719.4 499.1l-296.1-215A15.9 15.9 0 00398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 000-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z"
+                    />
+                  </svg>
+                </span>
+                Movie
+              </h1>
+            </div>
+            <div
+              class="ant-col ant-col-xs-1 ant-col-sm-9 ant-col-md-8 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4"
+            >
+              <ul
+                class="ant-menu nav-menu ant-menu-light ant-menu-root ant-menu-horizontal"
+                role="menu"
+              >
+                <li
+                  class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                  role="menuitem"
+                  style="flex: 1; display: none; justify-content: center;"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="ant-menu-submenu-title"
+                    role="button"
+                  >
+                    <span
+                      aria-label="menu"
+                      class="anticon anticon-menu"
+                      role="img"
+                      style="font-size: 16px;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        data-icon="menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                        />
+                      </svg>
+                    </span>
+                    <i
+                      class="ant-menu-submenu-arrow"
+                    />
+                  </div>
+                </li>
+                <li
+                  class="ant-menu-item ant-menu-item-selected"
+                  role="menuitem"
+                  style="flex: 1; display: flex; justify-content: center;"
+                >
+                  <a
+                    href="/"
+                  >
+                    Home
+                  </a>
+                  
+                </li>
+                <li
+                  class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                  role="menuitem"
+                  style="flex: 1; display: none; justify-content: center;"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="ant-menu-submenu-title"
+                    role="button"
+                  >
+                    <span
+                      aria-label="menu"
+                      class="anticon anticon-menu"
+                      role="img"
+                      style="font-size: 16px;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        data-icon="menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                        />
+                      </svg>
+                    </span>
+                    <i
+                      class="ant-menu-submenu-arrow"
+                    />
+                  </div>
+                </li>
+                <li
+                  class="ant-menu-item"
+                  role="menuitem"
+                  style="flex: 1; display: flex; justify-content: center;"
+                >
+                  <a
+                    href="/favorites"
+                  >
+                    Favorites
+                  </a>
+                  <span
+                    class="ant-typography"
+                  >
+                    (
+                    0
+                    )
+                  </span>
+                </li>
+                <li
+                  class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                  role="menuitem"
+                  style="flex: 1; display: none; justify-content: center; visibility: hidden; position: absolute;"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="ant-menu-submenu-title"
+                    role="button"
+                  >
+                    <span
+                      aria-label="menu"
+                      class="anticon anticon-menu"
+                      role="img"
+                      style="font-size: 16px;"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        data-icon="menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                        />
+                      </svg>
+                    </span>
+                    <i
+                      class="ant-menu-submenu-arrow"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </header>
+      </header>
+      <main
+        class="ant-layout-content"
+      >
+        <div
+          class="ant-row"
+          style="margin: -5px -5px 5px -5px; padding: 10px 20px;"
+        >
+          <div
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-5 ant-col-xl-4 ant-col-xxl-4"
+            style="padding: 5px 5px 5px 5px;"
+          >
+            <div
+              class="ant-card ant-card-bordered"
+            >
+              <div
+                class="ant-card-head"
+              >
+                <div
+                  class="ant-card-head-wrapper"
+                >
+                  <div
+                    class="ant-card-head-title"
+                  >
+                    <h4
+                      class="ant-typography"
+                      style="margin: 0px;"
+                    >
+                      <span
+                        aria-label="filter"
+                        class="anticon anticon-filter"
+                        role="img"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class=""
+                          data-icon="filter"
+                          fill="currentColor"
+                          focusable="false"
+                          height="1em"
+                          viewBox="64 64 896 896"
+                          width="1em"
+                        >
+                          <path
+                            d="M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 597.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V597.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.4 798H420.6V642h182.9v156zm9.6-236.6l-9.5 16.6h-183l-9.5-16.6L212.7 226h598.6L613 561.4z"
+                          />
+                        </svg>
+                      </span>
+                       Discover
+                    </h4>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="ant-card-body"
+              >
+                <ul
+                  class="ant-menu ant-menu-light ant-menu-root ant-menu-inline"
+                  role="menu"
+                >
+                  <div
+                    data-testid="tag-container"
+                  />
+                  <li
+                    class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
+                    role="menuitem"
+                  >
+                    <div
+                      aria-expanded="true"
+                      aria-haspopup="true"
+                      aria-owns="sort-option$Menu"
+                      class="ant-menu-submenu-title"
+                      role="button"
+                      style="padding-left: 24px;"
+                      title="Sort By"
+                    >
+                      Sort By
+                      <i
+                        class="ant-menu-submenu-arrow"
+                      />
+                    </div>
+                    <ul
+                      class="ant-menu ant-menu-sub ant-menu-inline"
+                      id="sort-option$Menu"
+                      role="menu"
+                    >
+                      <li
+                        class="ant-menu-item ant-menu-item-only-child ant-menu-item-selected"
+                        role="menuitem"
+                        style="padding-left: 48px;"
+                      >
+                        Popularity
+                      </li>
+                      <li
+                        class="ant-menu-item ant-menu-item-only-child"
+                        role="menuitem"
+                        style="padding-left: 48px;"
+                      >
+                        Latest Release
+                      </li>
+                      <li
+                        class="ant-menu-item ant-menu-item-only-child"
+                        role="menuitem"
+                        style="padding-left: 48px;"
+                      >
+                        Oldest Release
+                      </li>
+                    </ul>
+                  </li>
+                  <li
+                    class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-disabled"
+                    role="menuitem"
+                  >
+                    <div
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      class="ant-menu-submenu-title"
+                      role="button"
+                      style="padding-left: 24px;"
+                    >
+                      <span>
+                        Select Genre
+                      </span>
+                      <i
+                        class="ant-menu-submenu-arrow"
+                      />
+                    </div>
+                    <div />
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div
+            class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-19 ant-col-xl-20 ant-col-xxl-20"
+            style="padding: 5px 5px 5px 5px;"
+          >
+            <div
+              class="ant-card display-movie-list ant-card-bordered"
+            >
+              <div
+                class="ant-card-body"
+              >
+                <div
+                  class="ant-row ant-row-center"
+                  style="margin: -5px -5px 5px -5px;"
+                />
+                <div
+                  class="ant-row ant-row-center"
+                >
+                  <div
+                    class="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
+                  >
+                    <span
+                      class="ant-spin-dot ant-spin-dot-spin"
+                    >
+                      <i
+                        class="ant-spin-dot-item"
+                      />
+                      <i
+                        class="ant-spin-dot-item"
+                      />
+                      <i
+                        class="ant-spin-dot-item"
+                      />
+                      <i
+                        class="ant-spin-dot-item"
+                      />
+                    </span>
+                    <div
+                      class="ant-spin-text"
+                    >
+                      Loading...
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="ant-layout-footer"
+      >
+        Footer
+      </footer>
+    </div>
+  </body>,
+  "container": <div>
+    <header
+      class="ant-layout-header"
+      style="padding: 0px;"
+    >
+      <header
+        class="ant-layout-header nav-bar"
+      >
+        <div
+          class="ant-row ant-row-space-between"
+        >
+          <div
+            class="ant-col"
+            style="display: flex; align-items: center;"
+          >
+            <h1
+              class="ant-typography"
+              style="margin: 0px;"
+            >
+              <span
+                aria-label="play-circle"
+                class="anticon anticon-play-circle"
+                role="img"
+              >
+                <svg
+                  aria-hidden="true"
+                  class=""
+                  data-icon="play-circle"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                  />
+                  <path
+                    d="M719.4 499.1l-296.1-215A15.9 15.9 0 00398 297v430c0 13.1 14.8 20.5 25.3 12.9l296.1-215a15.9 15.9 0 000-25.8zm-257.6 134V390.9L628.5 512 461.8 633.1z"
+                  />
+                </svg>
+              </span>
+              Movie
+            </h1>
+          </div>
+          <div
+            class="ant-col ant-col-xs-1 ant-col-sm-9 ant-col-md-8 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4"
+          >
+            <ul
+              class="ant-menu nav-menu ant-menu-light ant-menu-root ant-menu-horizontal"
+              role="menu"
+            >
+              <li
+                class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                role="menuitem"
+                style="flex: 1; display: none; justify-content: center;"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="ant-menu-submenu-title"
+                  role="button"
+                >
+                  <span
+                    aria-label="menu"
+                    class="anticon anticon-menu"
+                    role="img"
+                    style="font-size: 16px;"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class=""
+                      data-icon="menu"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                  <i
+                    class="ant-menu-submenu-arrow"
+                  />
+                </div>
+              </li>
+              <li
+                class="ant-menu-item ant-menu-item-selected"
+                role="menuitem"
+                style="flex: 1; display: flex; justify-content: center;"
+              >
+                <a
+                  href="/"
+                >
+                  Home
+                </a>
+                
+              </li>
+              <li
+                class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                role="menuitem"
+                style="flex: 1; display: none; justify-content: center;"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="ant-menu-submenu-title"
+                  role="button"
+                >
+                  <span
+                    aria-label="menu"
+                    class="anticon anticon-menu"
+                    role="img"
+                    style="font-size: 16px;"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class=""
+                      data-icon="menu"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                  <i
+                    class="ant-menu-submenu-arrow"
+                  />
+                </div>
+              </li>
+              <li
+                class="ant-menu-item"
+                role="menuitem"
+                style="flex: 1; display: flex; justify-content: center;"
+              >
+                <a
+                  href="/favorites"
+                >
+                  Favorites
+                </a>
+                <span
+                  class="ant-typography"
+                >
+                  (
+                  0
+                  )
+                </span>
+              </li>
+              <li
+                class="ant-menu-submenu ant-menu-submenu-horizontal ant-menu-overflowed-submenu"
+                role="menuitem"
+                style="flex: 1; display: none; justify-content: center; visibility: hidden; position: absolute;"
+              >
+                <div
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  class="ant-menu-submenu-title"
+                  role="button"
+                >
+                  <span
+                    aria-label="menu"
+                    class="anticon anticon-menu"
+                    role="img"
+                    style="font-size: 16px;"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class=""
+                      data-icon="menu"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M904 160H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0 624H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8zm0-312H120c-4.4 0-8 3.6-8 8v64c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-64c0-4.4-3.6-8-8-8z"
+                      />
+                    </svg>
+                  </span>
+                  <i
+                    class="ant-menu-submenu-arrow"
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    </header>
+    <main
+      class="ant-layout-content"
+    >
+      <div
+        class="ant-row"
+        style="margin: -5px -5px 5px -5px; padding: 10px 20px;"
+      >
+        <div
+          class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-5 ant-col-xl-4 ant-col-xxl-4"
+          style="padding: 5px 5px 5px 5px;"
+        >
+          <div
+            class="ant-card ant-card-bordered"
+          >
+            <div
+              class="ant-card-head"
+            >
+              <div
+                class="ant-card-head-wrapper"
+              >
+                <div
+                  class="ant-card-head-title"
+                >
+                  <h4
+                    class="ant-typography"
+                    style="margin: 0px;"
+                  >
+                    <span
+                      aria-label="filter"
+                      class="anticon anticon-filter"
+                      role="img"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class=""
+                        data-icon="filter"
+                        fill="currentColor"
+                        focusable="false"
+                        height="1em"
+                        viewBox="64 64 896 896"
+                        width="1em"
+                      >
+                        <path
+                          d="M880.1 154H143.9c-24.5 0-39.8 26.7-27.5 48L349 597.4V838c0 17.7 14.2 32 31.8 32h262.4c17.6 0 31.8-14.3 31.8-32V597.4L907.7 202c12.2-21.3-3.1-48-27.6-48zM603.4 798H420.6V642h182.9v156zm9.6-236.6l-9.5 16.6h-183l-9.5-16.6L212.7 226h598.6L613 561.4z"
+                        />
+                      </svg>
+                    </span>
+                     Discover
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ant-card-body"
+            >
+              <ul
+                class="ant-menu ant-menu-light ant-menu-root ant-menu-inline"
+                role="menu"
+              >
+                <div
+                  data-testid="tag-container"
+                />
+                <li
+                  class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
+                  role="menuitem"
+                >
+                  <div
+                    aria-expanded="true"
+                    aria-haspopup="true"
+                    aria-owns="sort-option$Menu"
+                    class="ant-menu-submenu-title"
+                    role="button"
+                    style="padding-left: 24px;"
+                    title="Sort By"
+                  >
+                    Sort By
+                    <i
+                      class="ant-menu-submenu-arrow"
+                    />
+                  </div>
+                  <ul
+                    class="ant-menu ant-menu-sub ant-menu-inline"
+                    id="sort-option$Menu"
+                    role="menu"
+                  >
+                    <li
+                      class="ant-menu-item ant-menu-item-only-child ant-menu-item-selected"
+                      role="menuitem"
+                      style="padding-left: 48px;"
+                    >
+                      Popularity
+                    </li>
+                    <li
+                      class="ant-menu-item ant-menu-item-only-child"
+                      role="menuitem"
+                      style="padding-left: 48px;"
+                    >
+                      Latest Release
+                    </li>
+                    <li
+                      class="ant-menu-item ant-menu-item-only-child"
+                      role="menuitem"
+                      style="padding-left: 48px;"
+                    >
+                      Oldest Release
+                    </li>
+                  </ul>
+                </li>
+                <li
+                  class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-disabled"
+                  role="menuitem"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="ant-menu-submenu-title"
+                    role="button"
+                    style="padding-left: 24px;"
+                  >
+                    <span>
+                      Select Genre
+                    </span>
+                    <i
+                      class="ant-menu-submenu-arrow"
+                    />
+                  </div>
+                  <div />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div
+          class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-19 ant-col-xl-20 ant-col-xxl-20"
+          style="padding: 5px 5px 5px 5px;"
+        >
+          <div
+            class="ant-card display-movie-list ant-card-bordered"
+          >
+            <div
+              class="ant-card-body"
+            >
+              <div
+                class="ant-row ant-row-center"
+                style="margin: -5px -5px 5px -5px;"
+              />
+              <div
+                class="ant-row ant-row-center"
+              >
+                <div
+                  class="ant-spin ant-spin-lg ant-spin-spinning ant-spin-show-text"
+                >
+                  <span
+                    class="ant-spin-dot ant-spin-dot-spin"
+                  >
+                    <i
+                      class="ant-spin-dot-item"
+                    />
+                    <i
+                      class="ant-spin-dot-item"
+                    />
+                    <i
+                      class="ant-spin-dot-item"
+                    />
+                    <i
+                      class="ant-spin-dot-item"
+                    />
+                  </span>
+                  <div
+                    class="ant-spin-text"
+                  >
+                    Loading...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer
+      class="ant-layout-footer"
+    >
+      Footer
+    </footer>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

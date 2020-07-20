@@ -1,54 +1,119 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import CardContent from '../components/MainComponent/CardContent';
-import AppContextProvider from '../services/AppContextProvider';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { render, act, fireEvent, waitForElement } from '@testing-library/react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import AppContextProvider, { MovieContext } from '../services/AppContextProvider'
+import CardContent from '../components/MainComponent/CardContent'
 
-const dummyData = {
-    id: 1,
-    title: 'test',
-    poster_path: 'test_poster',
-    vote_average: 9
-}
 
-test('should show favorite button when mouse enter the display movie card', () => {
-    const component = renderer.create(
-        <AppContextProvider>
-            <Router>
-                <CardContent data={dummyData} />
-            </Router>
-        </AppContextProvider>
-    );
+describe('Card Content Component', () => {
+    const mockData = {
+        id: 1,
+        title: 'Test',
+        poster_path: 'test_poster',
+        average_score: 10
+    }
 
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const mockDataWithoutPoster = {
+        id: 1,
+        title: 'Test',
+        poster_path: null,
+        average_score: 10
+    }
 
-    renderer.act(() => {
-        tree.props.onMouseEnter();
+    it('render card content component', async () => {
+        const component = render(
+            <AppContextProvider>
+                <Router>
+                    <CardContent data={mockData} />
+                </Router>
+            </AppContextProvider>
+        );
+        await waitForElement(() => component.getByText('Test'));
+
+        expect(component).toMatchSnapshot();
+    });
+
+    it('render card content component without movie poster path', async () => {
+        const component = render(
+            <AppContextProvider>
+                <Router>
+                    <CardContent data={mockDataWithoutPoster} />
+                </Router>
+            </AppContextProvider>
+        );
+        await waitForElement(() => component.getByText('Test'));
+
+        expect(component).toMatchSnapshot();
+    });
+
+    it('should show favorite button on mouse enter the card component', async () => {
+        const { container, getByText, getByTestId } = render(
+            <AppContextProvider>
+                <Router>
+                    <CardContent data={mockData} />
+                </Router>
+            </AppContextProvider>
+        );
+        await waitForElement(() => getByText('Test'));
+
+        act(() => {
+            fireEvent.mouseEnter(container.firstChild);
+        });
+        expect(getByTestId('favorite-button-test')).toBeVisible();
+    });
+
+    it('should hide favorite button on mouse leave the card component', async () => {
+        const { container, getByText, getByTestId } = render(
+            <AppContextProvider>
+                <Router>
+                    <CardContent data={mockData} />
+                </Router>
+            </AppContextProvider>
+        );
+        await waitForElement(() => getByText('Test'));
+
+        act(() => {
+            fireEvent.mouseEnter(container.firstChild);
+        });
+        expect(getByTestId('favorite-button-test')).toBeVisible();
+
+        act(() => {
+            fireEvent.mouseLeave(container.firstChild);
+        });
+        expect(getByTestId('favorite-button-test')).not.toBeVisible();
+    });
+
+    describe('Test Favorite Button on Card Component', () => {
+        const TestComponent = () => {
+            const { listFavoriteMovie } = useContext(MovieContext);
+
+            return (
+                <div data-testid='favorite-list'>
+                    {listFavoriteMovie?.map(data => {
+                        return <p key={data.id} data-testid='favorite'>{data.title}</p>
+                    })}
+                </div>
+            )
+        }
+
+        it('should add movie to favorite list', async () => {
+            const { container, getByTestId } = render(
+                <AppContextProvider>
+                    <Router>
+                        <TestComponent />
+                        <CardContent data={mockData} />
+                    </Router>
+                </AppContextProvider>
+            );
+
+            await act(async () => {
+                await fireEvent.mouseEnter(container.lastChild);
+                await fireEvent.click(getByTestId('favorite-button-test'));
+            });
+
+            expect(getByTestId('favorite-list')).toHaveTextContent('Test');
+        });
+
     })
 
-    tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-});
-
-test('should show favorite button when mouse leave the display movie card', () => {
-    const component = renderer.create(
-        <AppContextProvider>
-            <Router>
-                <CardContent data={dummyData} />
-            </Router>
-        </AppContextProvider>
-    );
-
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-
-    renderer.act(() => {
-        tree.props.onMouseLeave();
-    })
-
-    tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-});
-
-
+})

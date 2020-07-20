@@ -1,64 +1,77 @@
-import React from 'react'
-import { render } from '@testing-library/react';
-import { MovieContext } from '../services/AppContextProvider';
-import DisplayMovieList from '../components/MainComponent/DisplayMovieList';
+import React from 'react';
+import Axios from 'axios';
+import { render, waitForElement, act, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import AppContextProvider from '../services/AppContextProvider';
+import DisplayMovieList from '../components/MainComponent/DisplayMovieList';
+import mockFetchData from '../__mocks__/mockFetchData';
+import { mockGenreList, mockMovieList, mockLoadMoreMovie } from '../__mocks__/mockResult';
 
-beforeAll(() => {
-    Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation(query => ({
-            matches: false,
-            media: query,
-            onchange: null,
-            addListener: jest.fn(), // deprecated
-            removeListener: jest.fn(), // deprecated
-            addEventListener: jest.fn(),
-            removeEventListener: jest.fn(),
-            dispatchEvent: jest.fn(),
-        })),
+
+Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // deprecated
+        removeListener: jest.fn(), // deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+    })),
+});
+
+describe('Display Movie List', () => {
+    afterEach(() => {
+        Axios.get.mockClear();
     });
+
+    it('render Display Movie List', async () => {
+        await mockFetchData(mockGenreList);
+        await mockFetchData(mockMovieList);
+
+        const { container, asFragment, getByText } = render(
+            <AppContextProvider>
+                <Router>
+                    <DisplayMovieList />
+                </Router>
+            </AppContextProvider>
+        );
+
+        expect(asFragment).toMatchSnapshot();
+        expect(getByText('Loading...')).toBeInTheDocument();
+        expect(container).toHaveTextContent('Loading...');
+
+        const movieList = await waitForElement(() => getByText('Test Movie List'));
+
+        expect(movieList).toBeInTheDocument();
+    });
+
+    it('should show more movie list when user load more movie', async () => {
+        await mockFetchData(mockGenreList);
+        await mockFetchData(mockMovieList);
+
+        const { getByText } = render(
+            <AppContextProvider>
+                <Router>
+                    <DisplayMovieList />
+                </Router>
+            </AppContextProvider>
+        );
+
+        expect(getByText('Loading...')).toBeInTheDocument();
+
+        const movieList = await waitForElement(() => getByText('Test Movie List'));
+        expect(movieList).toBeInTheDocument();
+
+        await act(async () => {
+            await fireEvent.click(getByText('Load more'));
+            await mockFetchData(mockLoadMoreMovie);
+        });
+
+        const moreMovieList = await waitForElement(() => getByText('Test Load More Movie'));
+        expect(moreMovieList).toBeInTheDocument();
+    });
+
 });
-
-test('should render movie list when data is no null', () => {
-    const movieList = [
-        {
-            id: 1,
-            title: 'test',
-            poster_path: 'test_poster',
-            vote_average: 9
-        }
-    ];
-    const isLoading = { loading: false, loader: 'movie-list' };
-    const error = { status: false, error: '' };
-
-    const component = render(
-        <MovieContext.Provider value={{ movieList, isLoading, error }}>
-            <Router>
-                <DisplayMovieList />
-            </Router>
-        </MovieContext.Provider>
-    );
-
-    expect(component).toMatchSnapshot();
-    expect(component.getByTestId('movie-list')).not.toBeNull();
-});
-
-test('should render error message when failed to get movie list', () => {
-    const movieList = [];
-    const isLoading = { loading: false, loader: 'movie-list' };
-    const error = { status: true, error: 'fetch-movie-error' };
-
-    const component = render(
-        <MovieContext.Provider value={{ movieList, isLoading, error }}>
-            <Router>
-                <DisplayMovieList />
-            </Router>
-        </MovieContext.Provider>
-    );
-
-    expect(component).toMatchSnapshot();
-    expect(component.getByTestId('movielist-error-message')).toHaveTextContent(
-        'Some Error is Occured, Please check your internet connection and try again or refresh the page'
-    );
-})

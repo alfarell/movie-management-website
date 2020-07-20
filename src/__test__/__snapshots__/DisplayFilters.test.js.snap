@@ -1,72 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Display Filter Snapshot render display filters 1`] = `
-<ul
-  className="ant-menu ant-menu-light ant-menu-root ant-menu-inline"
-  onMouseEnter={[Function]}
-  onTransitionEnd={[Function]}
-  role="menu"
-  style={Object {}}
->
-  <div />
-  <li
-    className="ant-menu-submenu ant-menu-submenu-inline"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    role="menuitem"
-  >
-    <div
-      aria-expanded={false}
-      aria-haspopup="true"
-      className="ant-menu-submenu-title"
-      onClick={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      role="button"
-      style={
-        Object {
-          "paddingLeft": 24,
-        }
-      }
-      title="Sort By"
-    >
-      Sort By
-      <i
-        className="ant-menu-submenu-arrow"
-      />
-    </div>
-    <div />
-  </li>
-  <li
-    className="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-disabled"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    role="menuitem"
-  >
-    <div
-      aria-expanded={false}
-      aria-haspopup="true"
-      className="ant-menu-submenu-title"
-      role="button"
-      style={
-        Object {
-          "paddingLeft": 24,
-        }
-      }
-    >
-      <span>
-        Select Genre
-      </span>
-      <i
-        className="ant-menu-submenu-arrow"
-      />
-    </div>
-    <div />
-  </li>
-</ul>
-`;
-
-exports[`Display Filters functions and render genres Genres should render the genres 1`] = `
+exports[`Display Filters Component display filter snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -75,14 +9,17 @@ Object {
         class="ant-menu ant-menu-light ant-menu-root ant-menu-inline"
         role="menu"
       >
-        <div />
+        <div
+          data-testid="tag-container"
+        />
         <li
-          class="ant-menu-submenu ant-menu-submenu-inline"
+          class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
           role="menuitem"
         >
           <div
-            aria-expanded="false"
+            aria-expanded="true"
             aria-haspopup="true"
+            aria-owns="sort-option$Menu"
             class="ant-menu-submenu-title"
             role="button"
             style="padding-left: 24px;"
@@ -93,10 +30,36 @@ Object {
               class="ant-menu-submenu-arrow"
             />
           </div>
-          <div />
+          <ul
+            class="ant-menu ant-menu-sub ant-menu-inline"
+            id="sort-option$Menu"
+            role="menu"
+          >
+            <li
+              class="ant-menu-item ant-menu-item-only-child ant-menu-item-selected"
+              role="menuitem"
+              style="padding-left: 48px;"
+            >
+              Popularity
+            </li>
+            <li
+              class="ant-menu-item ant-menu-item-only-child"
+              role="menuitem"
+              style="padding-left: 48px;"
+            >
+              Latest Release
+            </li>
+            <li
+              class="ant-menu-item ant-menu-item-only-child"
+              role="menuitem"
+              style="padding-left: 48px;"
+            >
+              Oldest Release
+            </li>
+          </ul>
         </li>
         <li
-          class="ant-menu-submenu ant-menu-submenu-inline"
+          class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-disabled"
           role="menuitem"
         >
           <div
@@ -123,14 +86,17 @@ Object {
       class="ant-menu ant-menu-light ant-menu-root ant-menu-inline"
       role="menu"
     >
-      <div />
+      <div
+        data-testid="tag-container"
+      />
       <li
-        class="ant-menu-submenu ant-menu-submenu-inline"
+        class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-open ant-menu-submenu-selected"
         role="menuitem"
       >
         <div
-          aria-expanded="false"
+          aria-expanded="true"
           aria-haspopup="true"
+          aria-owns="sort-option$Menu"
           class="ant-menu-submenu-title"
           role="button"
           style="padding-left: 24px;"
@@ -141,10 +107,36 @@ Object {
             class="ant-menu-submenu-arrow"
           />
         </div>
-        <div />
+        <ul
+          class="ant-menu ant-menu-sub ant-menu-inline"
+          id="sort-option$Menu"
+          role="menu"
+        >
+          <li
+            class="ant-menu-item ant-menu-item-only-child ant-menu-item-selected"
+            role="menuitem"
+            style="padding-left: 48px;"
+          >
+            Popularity
+          </li>
+          <li
+            class="ant-menu-item ant-menu-item-only-child"
+            role="menuitem"
+            style="padding-left: 48px;"
+          >
+            Latest Release
+          </li>
+          <li
+            class="ant-menu-item ant-menu-item-only-child"
+            role="menuitem"
+            style="padding-left: 48px;"
+          >
+            Oldest Release
+          </li>
+        </ul>
       </li>
       <li
-        class="ant-menu-submenu ant-menu-submenu-inline"
+        class="ant-menu-submenu ant-menu-submenu-inline ant-menu-submenu-disabled"
         role="menuitem"
       >
         <div
