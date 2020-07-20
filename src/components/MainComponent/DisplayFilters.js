@@ -12,7 +12,7 @@ const DisplayFilters = () => {
             selectedKeys={[selectedGenre?.id?.toString(), sortOption]}
             defaultOpenKeys={['sort-option']}
         >
-            <div>
+            <div data-testid='tag-container'>
                 {selectedGenre && (
                     <Tag
                         color='blue'
