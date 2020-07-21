@@ -21,14 +21,27 @@ const MovieDetailPage = ({ match }) => {
     useEffect(() => {
         setLoading(true);
 
-        fetchData(
-            `${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}`,
-            setMovieDetail
-        );
-        fetchData(
-            `${process.env.REACT_APP_BASE_URL}/movie/${match.params.id}/credits`,
-            setMovieCredits
-        );
+        const fetchAll = async () => {
+            try {
+                const [resMovieDetails, resMovieCredits] = await Axios.all([
+                    fetchData(`/movie/${match.params.id}`), //fetch movie details
+                    fetchData(`/movie/${match.params.id}/credits`) //fetch movie credits (cast and crew)
+                ]);
+
+                const { data: movieDetailData } = resMovieDetails;
+                const { data: movieCreditData } = resMovieCredits;
+
+                setMovieDetail(movieDetailData);
+                setMovieCredits(movieCreditData);
+
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAll();
 
         return () => {
             setMovieCredits({});
@@ -36,21 +49,13 @@ const MovieDetailPage = ({ match }) => {
         }
     }, [match.params.id]);
 
-    const fetchData = async (url, setState) => {
-        try {
-            const response = await Axios.get(url, {
-                params: {
-                    api_key: process.env.REACT_APP_BASE_API_KEY,
-                    language: 'en-US'
-                }
-            });
-
-            setState(response.data);
-        } catch (err) {
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
+    const fetchData = (path) => {
+        return Axios.get(process.env.REACT_APP_BASE_URL + path, {
+            params: {
+                api_key: process.env.REACT_APP_BASE_API_KEY,
+                language: 'en-US'
+            }
+        });
     }
 
     if (loading) {
@@ -130,9 +135,11 @@ const MovieDetailPage = ({ match }) => {
                     </Col>
                 </Row>
             </div>
+
             <Card title='Overview' style={{ margin: 10 }}>
                 <Paragraph>{overview}</Paragraph>
             </Card>
+
             <DisplayMovieCredits movieCredit={cast} />
         </Fragment >
     );
