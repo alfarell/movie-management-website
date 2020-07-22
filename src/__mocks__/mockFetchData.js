@@ -6,4 +6,8 @@ const mockFetchData = async (mockData) => {
     });
 }
 
-export default mockFetchData;
+const mockFetchAllData = async (mockAllData) => {
+    await Axios.all.mockResolvedValueOnce([...mockAllData]);
+}
+
+export { mockFetchData, mockFetchAllData };
