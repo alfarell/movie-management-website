@@ -24,7 +24,7 @@ const AppContextProvider = ({ children }) => {
 
     //loading and error state
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState({ status: false, error: '' });
+    const [error, setError] = useState(false);
 
 
     //Genre List
@@ -43,25 +43,13 @@ const AppContextProvider = ({ children }) => {
         getGenreList();
     }, []);
 
-    //Fetch movie list and set option to discover the movie list
+
     useEffect(() => {
-        const discovers = {
-            genre: selectedGenre?.id,
-            sort: sortOption,
-            page: 1
-        };
-
         setMovieList([]);
-        setLoading(true);
-        setError({ status: false, error: 'fetch-movie-error' });
-
-        fetchMovie(data => setMovieList(data), {
-            loader: 'fetch-movie',
-            fetchOption: discovers
-        });
+        setPagination(1);
     }, [selectedGenre, sortOption]);
 
-    //Load more movie
+    //Fetch movie list and set option to discover the movie list
     useEffect(() => {
         const discovers = {
             genre: selectedGenre?.id,
@@ -70,13 +58,11 @@ const AppContextProvider = ({ children }) => {
         };
 
         setLoading(true);
-        setError({ status: false, error: 'load-more-movie-error' });
+        setError(false);
 
-        fetchMovie(data => setMovieList([...movieList, ...data]), {
-            loader: 'load-more-movie',
-            fetchOption: discovers
-        });
-    }, [pagination]);
+        fetchMovie(discovers);
+    }, [selectedGenre, sortOption, pagination]);
+
 
     //Save the favorited movie list to local storage
     useEffect(() => {
@@ -85,7 +71,7 @@ const AppContextProvider = ({ children }) => {
 
 
     //Fetch movie list 
-    const fetchMovie = async (setData, { loader, fetchOption: { genre, sort, page } }) => {
+    const fetchMovie = async ({ genre, sort, page }) => {
         try {
             const response = await Axios.get(`${process.env.REACT_APP_BASE_URL}/discover/movie`, {
                 params: {
@@ -99,10 +85,13 @@ const AppContextProvider = ({ children }) => {
                 }
             });
 
-            setData(response.data.results);
+            setMovieList(movies => {
+                if (movies.length > 0) return [...movies, ...response.data.results]
 
+                return response.data.results
+            });
         } catch (err) {
-            setError({ status: true, error: loader + '-error' });
+            setError(true);
         } finally {
             setLoading(false);
         }

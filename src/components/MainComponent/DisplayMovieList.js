@@ -21,7 +21,7 @@ const DisplayMovieList = () => {
 
             <Row justify='center'>
                 {loading && <Spin tip='Loading...' size='large' />}
-                {error.status && <Alert
+                {error && <Alert
                     description='Some Error is Occured, Please check your internet connection and try again or refresh the page'
                     type='error'
                     showIcon
