@@ -23,8 +23,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('Movie Detail Page', () => {
     afterEach(() => {
-        // Axios.all.mockClear();
-        Axios.get.mockClear();
+        Axios.all.mockClear();
     });
 
     it('should render loading', async () => {
