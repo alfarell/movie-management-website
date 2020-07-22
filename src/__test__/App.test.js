@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitForElement } from '@testing-library/react'
 import Axios from 'axios';
 import App from '../App';
-import mockFetchData from '../__mocks__/mockFetchData';
+import { mockFetchData } from '../__mocks__/mockFetchData';
 import { mockGenreList, mockMovieList } from '../__mocks__/mockResult';
 
 

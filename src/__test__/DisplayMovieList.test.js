@@ -4,7 +4,7 @@ import { render, waitForElement, act, fireEvent } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppContextProvider from '../services/AppContextProvider';
 import DisplayMovieList from '../components/MainComponent/DisplayMovieList';
-import mockFetchData from '../__mocks__/mockFetchData';
+import { mockFetchData } from '../__mocks__/mockFetchData';
 import { mockGenreList, mockMovieList, mockLoadMoreMovie } from '../__mocks__/mockResult';
 
 

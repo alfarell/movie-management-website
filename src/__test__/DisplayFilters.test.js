@@ -4,7 +4,7 @@ import { render, fireEvent, waitForElement } from '@testing-library/react';
 import AppContextProvider, { MovieContext } from '../services/AppContextProvider';
 import DisplayFilters from '../components/MainComponent/DisplayFilters';
 import { act } from 'react-dom/test-utils';
-import mockFetchData from '../__mocks__/mockFetchData';
+import { mockFetchData } from '../__mocks__/mockFetchData';
 import { mockGenreList } from '../__mocks__/mockResult';
 
 

@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { render, act, waitForElement, fireEvent } from '@testing-library/react';
 import AppContextProvider from '../services/AppContextProvider';
 import MovieDetailPage from '../pages/MovieDetailPage';
-import mockFetchData from '../__mocks__/mockFetchData';
+import { mockFetchAllData } from '../__mocks__/mockFetchData';
 import { mockMovieDetail, mockMovieCast } from '../__mocks__/mockResult';
 
 
@@ -23,6 +23,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('Movie Detail Page', () => {
     afterEach(() => {
+        // Axios.all.mockClear();
         Axios.get.mockClear();
     });
 
@@ -41,7 +42,7 @@ describe('Movie Detail Page', () => {
 
 
     it('should render movie', async () => {
-        await mockFetchData(mockMovieDetail);
+        await mockFetchAllData([{ data: mockMovieDetail }, { data: mockMovieCast }]);
 
         const { getByText } = render(
             <AppContextProvider>
@@ -54,8 +55,7 @@ describe('Movie Detail Page', () => {
     });
 
     it('should render movie cast', async () => {
-        await mockFetchData(mockMovieDetail);
-        await mockFetchData(mockMovieCast);
+        await mockFetchAllData([{ data: mockMovieDetail }, { data: mockMovieCast }]);
 
         const { getByText } = render(
             <AppContextProvider>
@@ -68,7 +68,7 @@ describe('Movie Detail Page', () => {
     });
 
     it('should render error when failed to get data', async () => {
-        await Axios.get.mockRejectedValueOnce(new Error('error'));
+        await Axios.all.mockRejectedValueOnce(new Error('error'));
 
         const { getByText } = render(
             <AppContextProvider>
@@ -81,8 +81,7 @@ describe('Movie Detail Page', () => {
     });
 
     it('should add movie to favorite and remove it when its already in favorite list', async () => {
-        await mockFetchData(mockMovieDetail);
-        await mockFetchData(mockMovieCast);
+        await mockFetchAllData([{ data: mockMovieDetail }, { data: mockMovieCast }]);
 
         const { getByText } = render(
             <AppContextProvider>
