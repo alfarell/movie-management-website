@@ -5,7 +5,7 @@ import AppContextProvider, { MovieContext } from '../services/AppContextProvider
 import DisplayFilters from '../components/MainComponent/DisplayFilters';
 import { act } from 'react-dom/test-utils';
 import { mockFetchData } from '../__mocks__/mockFetchData';
-import { mockGenreList } from '../__mocks__/mockResult';
+import { mockGenreList, mockMovieList } from '../__mocks__/mockResult';
 
 
 describe('Display Filters Component', () => {
@@ -48,7 +48,6 @@ describe('Display Filters Component', () => {
         );
 
         await act(async () => {
-            await fireEvent.click(getByText('Sort By'));
             await fireEvent.click(getByText('Popularity'));
         });
 
@@ -65,12 +64,12 @@ describe('Display Filters Component', () => {
             </AppContextProvider>
         );
 
-        await act(async () => {
-            await fireEvent.click(getByText('Sort By'));
-            await fireEvent.click(getByText('Latest Release'));
+        act(() => {
+            fireEvent.click(getByText('Latest Release'));
         });
 
         expect(getByTestId('selected-sort-option')).toHaveTextContent('release_date.desc');
+        await waitForElement(() => getByText('Latest Release'));
     });
 
     it('selected sort option should be release_date.asc', async () => {
@@ -83,12 +82,12 @@ describe('Display Filters Component', () => {
             </AppContextProvider>
         );
 
-        await act(async () => {
-            await fireEvent.click(getByText('Sort By'));
-            await fireEvent.click(getByText('Oldest Release'));
+        act(() => {
+            fireEvent.click(getByText('Oldest Release'));
         });
 
         expect(getByTestId('selected-sort-option')).toHaveTextContent('release_date.asc');
+        await waitForElement(() => getByText('Oldest Release'));
     });
 
     it('render genre list and show selected genre', async () => {
