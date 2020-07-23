@@ -74,4 +74,23 @@ describe('Display Movie List', () => {
         expect(moreMovieList).toBeInTheDocument();
     });
 
+    it('should show error message when failed to get data', async () => {
+        await mockFetchData(mockGenreList);
+        await Axios.get.mockRejectedValueOnce(new Error('error'));
+
+        const { container, getByText, getByTestId } = render(
+            <AppContextProvider>
+                <Router>
+                    <DisplayMovieList />
+                </Router>
+            </AppContextProvider>
+        );
+
+        expect(getByText('Loading...')).toBeInTheDocument();
+        expect(container).toHaveTextContent('Loading...');
+
+        const errorMessage = await waitForElement(() => getByTestId('movielist-error-message'));
+
+        expect(errorMessage).toBeInTheDocument();
+    });
 });
