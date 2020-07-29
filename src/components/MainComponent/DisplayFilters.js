@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Menu, Tag } from 'antd';
-import { MovieContext } from '../../services/AppContextProvider';
+import { MovieContext } from '../../services/MovieContextProvider';
+import { GenreContext } from '../../services/GenreContextProvider';
 
 const DisplayFilters = () => {
-    const { genreList, selectedGenre, sortOption, setSelectedGenre, setSortOption } = useContext(MovieContext);
+    const { genreList } = useContext(GenreContext);
+    const { selectedGenre, sortOption, setSelectedGenre, setSortOption } = useContext(MovieContext);
 
     return (
         <Menu

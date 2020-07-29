@@ -2,14 +2,14 @@ import React, { useState, useContext } from 'react';
 import { Card, Rate } from 'antd';
 import _ from 'loadsh';
 import { StarFilled } from '@ant-design/icons';
-import { MovieContext } from '../../services/AppContextProvider';
-import FavoriteButton from '../ButtonComponent/FavoriteButton';
 import { Link } from 'react-router-dom';
+import FavoriteButton from '../ButtonComponent/FavoriteButton';
+import { FavoriteMovieContext } from '../../services/FavoriteMovieContextProvider';
 
 
 const CardContent = ({ data }) => {
     const [favoriteLabel, setFavoriteLabel] = useState({ display: 'none', filter: 'none' });
-    const { addFavoriteMovie, listFavoriteMovie } = useContext(MovieContext);
+    const { addFavoriteMovie, listFavoriteMovie } = useContext(FavoriteMovieContext);
 
     const favorite = _.find(listFavoriteMovie, (favorited) => {
         return favorited.id === data.id

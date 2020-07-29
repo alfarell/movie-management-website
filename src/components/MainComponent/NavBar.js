@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Layout, Typography, Row, Col, Menu } from 'antd';
 import { PlayCircleOutlined, MenuOutlined } from '@ant-design/icons';
 import { AppPages } from '../../utils/AppPages';
-import { MovieContext } from '../../services/AppContextProvider';
+import { FavoriteMovieContext } from '../../services/FavoriteMovieContextProvider';
 
 
 const { Header } = Layout;
@@ -11,7 +11,7 @@ const { Title, Text } = Typography;
 
 const NavBar = () => {
     const location = useLocation();
-    const { listFavoriteMovie } = useContext(MovieContext);
+    const { listFavoriteMovie } = useContext(FavoriteMovieContext);
 
     return (
         <Header className='nav-bar'>

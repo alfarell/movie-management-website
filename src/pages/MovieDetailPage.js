@@ -4,8 +4,8 @@ import _ from 'loadsh';
 import { Spin, Typography, Row, Col, Card, Rate, Tag, Alert } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 import FavoriteButton from '../components/ButtonComponent/FavoriteButton';
-import { MovieContext } from '../services/AppContextProvider';
 import DisplayMovieCredits from '../components/MovieDetailComponent/DisplayMovieCredits';
+import { FavoriteMovieContext } from '../services/FavoriteMovieContextProvider';
 
 
 const { Title, Text, Paragraph } = Typography;
@@ -16,7 +16,7 @@ const MovieDetailPage = ({ match }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const { addFavoriteMovie, listFavoriteMovie } = useContext(MovieContext);
+    const { addFavoriteMovie, listFavoriteMovie } = useContext(FavoriteMovieContext);
 
     useEffect(() => {
         setLoading(true);

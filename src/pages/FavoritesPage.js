@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Card, Row, Col, Empty } from 'antd';
 import CardContent from '../components/MainComponent/CardContent';
-import { MovieContext } from '../services/AppContextProvider';
+import { FavoriteMovieContext } from '../services/FavoriteMovieContextProvider';
 
 const FavoritesPage = () => {
-    const { listFavoriteMovie } = useContext(MovieContext);
+    const { listFavoriteMovie } = useContext(FavoriteMovieContext);
 
     return (
         <div style={{ padding: '10px 20px' }}>
